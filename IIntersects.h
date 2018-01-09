@@ -8,12 +8,16 @@
 #include "Obstacle.h"
 #include "Bird.h"
 
+template <typename T>
 class IIntersects {
 
 public:
 
-    virtual bool Intersects ( Obstacle& obstacle , Bird& bird) = 0;
+    virtual bool Intersects ( Obstacle& obstacle , Bird<T>& bird) = 0;
 
+    virtual bool hitsFloor( Bird<T>& bird ) = 0;
+
+    virtual bool hitsCeil( Bird<T>& bird ) = 0;
 
 
 

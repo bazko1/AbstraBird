@@ -11,11 +11,11 @@
 #include <vector>
 #include "Obstacle.h"
 
-class ObstacleSet {
+class ObstacleSet : std::vector<Obstacle> {
 
 private:
 
-    std::vector <Obstacle> obstacles;
+  //  std::vector <Obstacle> obstacles;
 
 public:
 

@@ -7,26 +7,24 @@
 
 
 #include "IDrawable.h"
-#include "IMovable.h"
+#include "IUpdate.h"
 
-class Bird : IDrawable , IMovable {
+
+template <typename T>
+class Bird : IDrawable , IUpdate {
 
 private:
 
     /// Coordinates
-    double x;
-    double y;
+    T x;
+    T y;
     /// Movement
-    double dx;
-    double dy;
+    T dx;
+    T dy;
 
 public:
 
     void Update();
-
-    void IDrawable::Draw();
-
-    void IMovable::Move(double xPos, double yPos);
 
 
 

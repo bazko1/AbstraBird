@@ -5,10 +5,11 @@
 #ifndef ABSTRABIRD_IMOVABLE_H
 #define ABSTRABIRD_IMOVABLE_H
 
-class IMovable {
+
+class IUpdate {
 
 public:
-    virtual void Move (double xPos , double yPos ) = 0;
+    virtual void Update () = 0;
 
 
 

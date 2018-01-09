@@ -3,3 +3,37 @@
 //
 
 #include "GameLogic.h"
+#include "ObstacleSet.h"
+
+template <typename T>
+bool IIntersects<T>::hitsCeil(Bird<T> &bird) {
+
+}
+
+template <typename T>
+bool IIntersects<T>::hitsFloor(Bird<T> &bird) {
+
+}
+template <typename T>
+bool IIntersects<T>::Intersects( Obstacle &obstacle , Bird<T> &bird)  {
+    return false;
+
+}
+
+template <typename T>
+bool GameLogic<T>::GameOver(Bird<T> &bird , ObstacleSet& obstacleSet) {
+
+    if ( hitsFloor(bird)|hitsCeil(bird) )
+        return true;
+
+    for ( Obstacle obstacle: obstacleSet ){
+
+        if (  Intersects( obstacle , bird ) )
+            return true;
+
+    }
+
+
+
+
+}

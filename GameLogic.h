@@ -7,10 +7,19 @@
 
 
 #include "IIntersects.h"
+#include "ObstacleSet.h"
+template <typename T>
+class GameLogic : IIntersects<T> {
 
-class GameLogic : IIntersects {
+
+bool lost = false;
 
 
+
+
+public:
+
+    bool GameOver ( Bird<T>& b , ObstacleSet& obstacleSet);
 
 };
 

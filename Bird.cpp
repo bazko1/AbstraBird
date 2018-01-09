@@ -4,10 +4,12 @@
 
 #include "Bird.h"
 
-void Bird::Update() {
+template <typename T>
+void Bird<T>::Update() {
 
     x += dx;
     y += dy;
 
 
 }
+

@@ -6,7 +6,23 @@
 #define ABSTRABIRD_OBSTACLE_H
 
 
-class Obstacle {
+#include "Pipe.h"
+#include "IUpdate.h"
+
+class Obstacle : IUpdate , IDrawable{
+
+    int dx;
+
+    int dy;
+
+    Pipe top;
+
+    Pipe bottom;
+
+public:
+    void Update() override;
+    void Draw() override;
+
 
 };
 
