@@ -13,7 +13,7 @@ class IIntersects {
 
 public:
 
-    virtual bool Intersects ( Obstacle& obstacle , Bird<T>& bird) = 0;
+    virtual bool Intersects ( Obstacle<T>& obstacle , Bird<T>& bird) = 0;
 
     virtual bool hitsFloor( Bird<T>& bird ) = 0;
 

@@ -8,20 +8,19 @@
 
 #include "Pipe.h"
 #include "IUpdate.h"
+template <typename T>
+class Obstacle : IUpdate {
 
-class Obstacle : IUpdate , IDrawable{
+    T dx;
 
-    int dx;
+    T dy;
 
-    int dy;
+    Pipe<T> top;
 
-    Pipe top;
-
-    Pipe bottom;
+    Pipe<T> bottom;
 
 public:
     void Update() override;
-    void Draw() override;
 
 
 };

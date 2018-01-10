@@ -3,8 +3,8 @@
 //
 
 #include "Obstacle.h"
-
-void Obstacle::Update() {
+template <typename T>
+void Obstacle<T>::Update() {
 
     top.Move( dx , dy );
 
@@ -13,9 +13,4 @@ void Obstacle::Update() {
 
 }
 
-void Obstacle::Draw() {
 
-    top.Draw();
-    bottom.Draw();
-
-}

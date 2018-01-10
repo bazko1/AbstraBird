@@ -1,11 +1,27 @@
 #include <iostream>
 #include <SDL.h>
 #include <chrono>
+#include <SDL_image.h>
+#include <bits/unique_ptr.h>
 #include "DeltaTimer.h"
 static int width = 720;
 static int height = 480;
 
+
+struct Opak
+{
+    SDL_Surface* surface;
+
+    ~Opak(){
+
+        SDL_FreeSurface(surface);
+
+    }
+};
+
+
 int main() {
+
 
 
     struct speed {
@@ -16,7 +32,7 @@ int main() {
         double y;
     };
 
-    speed speed1(0.9,0.8);
+    speed speed1(0.5,0.8);
 
 
 
@@ -28,8 +44,8 @@ int main() {
 
     SDL_Rect rect2 ={0,0,40,40};
 //
-    double X=0;
-    double Y=0;
+    double X=0.;
+    double Y=0.;
 
     SDL_Window *win = NULL;
     SDL_Renderer *renderer = NULL;
@@ -50,7 +66,7 @@ int main() {
 
     bitmapSurface2 = SDL_LoadBMP("/home/bazyli/Desktop/Bird2.bmp");
 
-    //IMG_Load()
+    //IMG_Load("")
     bitmapTex = SDL_CreateTextureFromSurface(renderer, bitmapSurface);
 
     bitmapTex2 = SDL_CreateTextureFromSurface(renderer,bitmapSurface2);
@@ -62,7 +78,13 @@ int main() {
 
     SDL_FreeSurface(bitmapSurface2);
 
+    Timer timer;
+
+    int count=0;
+    int state = 0;
     while (1) {
+
+        count++;
 
         SDL_Event e;
         if (SDL_PollEvent(&e)) {
@@ -72,15 +94,20 @@ int main() {
         }
 
 
-        Timer timer;
-
 
 
         SDL_RenderClear(renderer);
 
         SDL_RenderCopy(renderer, bitmapTex, NULL, NULL);
-        SDL_RenderCopyEx( renderer, bitmapTex2, nullptr, &rect,  0, NULL, SDL_FLIP_NONE );
+
+        if (count%31==0)
+        SDL_RenderCopyEx( renderer, bitmapTex2, nullptr, &rect,  90, NULL, SDL_FLIP_NONE );
+        else
+            SDL_RenderCopyEx( renderer, bitmapTex2, nullptr, &rect,  0, NULL, SDL_FLIP_NONE );
+
+
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        //SDL_RenderCopyEx( renderer, NULL, nullptr, &rect2,  , NULL, SDL_FLIP_NONE );
         SDL_RenderFillRect(renderer, &rect2);
 
 
@@ -92,11 +119,12 @@ int main() {
 
         if (rect.x + rect.w < width) {
 
-        X += speed1.x * d * 100;
+        X += speed1.x * d * 300 ;
 
-            int IN= (int)X;
-            rect.x += X;
-            rect2.x+=X;
+
+            rect.x = X;
+            rect2.x =X;
+
 
     } else rect.x = width-rect.w;
 
@@ -104,13 +132,16 @@ int main() {
 
         //duration < int  ,  std::milli > asUint ( d) ;
         //Uint32 ui = timer.GetDelta();
-        Uint32 delay = 16.0 - d;
+       // Uint32 delay = 16.0 - d;
 
 
-        SDL_Delay(  delay );
+        //SDL_Delay(  delay );
 
+        //IMG_Load()
 
     }
+
+
 
     SDL_DestroyTexture(bitmapTex);
     SDL_DestroyRenderer(renderer);

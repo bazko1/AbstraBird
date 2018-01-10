@@ -15,18 +15,18 @@ bool IIntersects<T>::hitsFloor(Bird<T> &bird) {
 
 }
 template <typename T>
-bool IIntersects<T>::Intersects( Obstacle &obstacle , Bird<T> &bird)  {
+bool IIntersects<T>::Intersects( Obstacle<T> &obstacle , Bird<T> &bird)  {
     return false;
 
 }
 
 template <typename T>
-bool GameLogic<T>::GameOver(Bird<T> &bird , ObstacleSet& obstacleSet) {
+bool GameLogic<T>::GameOver(Bird<T> &bird , ObstacleSet<T>& obstacleSet) {
 
     if ( hitsFloor(bird)|hitsCeil(bird) )
         return true;
 
-    for ( Obstacle obstacle: obstacleSet ){
+    for ( Obstacle<T> obstacle: obstacleSet ){
 
         if (  Intersects( obstacle , bird ) )
             return true;

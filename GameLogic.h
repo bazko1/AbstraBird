@@ -19,7 +19,7 @@ bool lost = false;
 
 public:
 
-    bool GameOver ( Bird<T>& b , ObstacleSet& obstacleSet);
+    bool GameOver ( Bird<T>& b , ObstacleSet<T>& obstacleSet);
 
 };
 

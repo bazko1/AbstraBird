@@ -28,13 +28,17 @@ public:
 
         // 2. Get the time difference as seconds
         // ...represented as a double
-        duration< double > delta( timeCurrent - timePrev );
 
+        auto timeDiff = duration_cast< nanoseconds >( timeCurrent - timePrev );
+        //duration< double > delta( timeCurrent - timePrev );
         // 3. Reset the timePrev to the current point in time
-        timePrev = high_resolution_clock::now();
+        double delta = timeDiff.count();
 
         // 4. Returns the number of ticks in delta
-        return delta.count();
+        delta /= 1000000000;
+
+        timePrev = high_resolution_clock::now();
+        return delta;
     }
 private:
     // For delta time calculation, updated every frame

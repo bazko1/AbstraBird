@@ -3,41 +3,42 @@
 //
 
 #include "Pipe.h"
-
-const int Pipe::getHeight() const {
+template <typename T>
+const int Pipe<T>::getHeight() const {
     return Height;
 }
 
-const int Pipe::getWidth() const {
+template <typename T>
+const int Pipe<T>::getWidth() const {
     return Width;
 }
-
-int Pipe::getX() const {
+template <typename T>
+int Pipe<T>::getX() const {
     return x;
 }
-
-void Pipe::setX(int x) {
+template <typename T>
+void Pipe<T>::setX(int x) {
     Pipe::x = x;
 
 }
-
-void Pipe::Move(int dx , int dy) {
+template <typename T>
+void Pipe<T>::Move(int dx , int dy) {
 
     Pipe::x += dx;
     Pipe::y += dy;
 
 }
 
-
-int Pipe::getY() const {
+template <typename T>
+int Pipe<T>::getY() const {
     return y;
 }
-
-void Pipe::setY(int y) {
+template <typename T>
+void Pipe<T>::setY(int y) {
     Pipe::y = y;
 }
-
-void Pipe::Draw() {
+template <typename T>
+void Pipe<T>::Draw() {
 
 }
 

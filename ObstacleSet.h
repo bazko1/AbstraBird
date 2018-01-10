@@ -10,8 +10,8 @@
 
 #include <vector>
 #include "Obstacle.h"
-
-class ObstacleSet : std::vector<Obstacle> {
+template <typename T>
+class ObstacleSet : std::vector< Obstacle<T> > {
 
 private:
 

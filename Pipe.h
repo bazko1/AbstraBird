@@ -8,15 +8,15 @@
 
 #include "IDrawable.h"
 #include "IUpdate.h"
-
+template <typename T>
 class Pipe : IDrawable {
 
-    const int Height;
+    const T Height;
 
-    const int Width;
+    const T Width;
 
-    int x;
-    int y;
+    T x;
+    T y;
 
 public:
 
