@@ -100,10 +100,7 @@ int main() {
 
         SDL_RenderCopy(renderer, bitmapTex, NULL, NULL);
 
-        if (count%31==0)
-        SDL_RenderCopyEx( renderer, bitmapTex2, nullptr, &rect,  90, NULL, SDL_FLIP_NONE );
-        else
-            SDL_RenderCopyEx( renderer, bitmapTex2, nullptr, &rect,  0, NULL, SDL_FLIP_NONE );
+        SDL_RenderCopyEx( renderer, bitmapTex2, nullptr, &rect,  0, NULL, SDL_FLIP_NONE );
 
 
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
