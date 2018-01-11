@@ -37,7 +37,7 @@ int main() {
 
 
     SDL_Rect rect;
-    rect.w=40;
+    rect.w=120;
     rect.h=40;
     rect.x=0;
     rect.y=height/2;
@@ -57,28 +57,47 @@ int main() {
 
     SDL_Init(SDL_INIT_EVERYTHING);
 
-    win = SDL_CreateWindow("Hello World", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
+    win = SDL_CreateWindow("Abstra Bird", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
 
     renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
 
 
-    bitmapSurface = SDL_LoadBMP("/home/bazyli/Desktop/ASTRO2.BMP");
+    bitmapSurface = IMG_Load("/home/bazyli/Desktop/abstapicsts/bg.png");
 
-    bitmapSurface2 = SDL_LoadBMP("/home/bazyli/Desktop/Bird2.bmp");
+    //bitmapSurface2 = SDL_LoadBMP("/home/bazyli/CLionProjects/AbstraBird/Pictures/Bird2.bmp");
 
-    //IMG_Load("")
+    bitmapSurface2 = IMG_Load("/home/bazyli/Desktop/abstapicsts/bird_sing.png");
+
+    SDL_Surface* top = IMG_Load("/home/bazyli/Desktop/abstapicsts/tube1.png");
+
+    SDL_Surface* bot = IMG_Load("/home/bazyli/Desktop/abstapicsts/tube2.png");
+
+    SDL_Surface* ground= IMG_Load("/home/bazyli/Desktop/abstapicsts/ground.png");
+
+
+    SDL_Texture* topS = SDL_CreateTextureFromSurface ( renderer , top);
+
+    SDL_Texture* botS = SDL_CreateTextureFromSurface ( renderer , bot);
+
+    SDL_Texture* groundS = SDL_CreateTextureFromSurface ( renderer , bot);
+
     bitmapTex = SDL_CreateTextureFromSurface(renderer, bitmapSurface);
 
     bitmapTex2 = SDL_CreateTextureFromSurface(renderer,bitmapSurface2);
 
     //SDL_Texture
-
+    std::cout<<bitmapSurface;
 
     SDL_FreeSurface(bitmapSurface);
+
+    SDL_Rect TP = {width-40,0,40,90};
+    SDL_Rect DP = {width-40,height/2,40,height-height/2};
 
     SDL_FreeSurface(bitmapSurface2);
 
     Timer timer;
+
+    SDL_Rect rect3 = {0,height/2,40,40};
 
     int count=0;
     int state = 0;
@@ -95,17 +114,23 @@ int main() {
 
 
 
-
+       // SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
         SDL_RenderClear(renderer);
 
         SDL_RenderCopy(renderer, bitmapTex, NULL, NULL);
 
-        SDL_RenderCopyEx( renderer, bitmapTex2, nullptr, &rect,  0, NULL, SDL_FLIP_NONE );
+
+        SDL_RenderCopyEx( renderer, bitmapTex2, 0, &rect3,  0, NULL, SDL_FLIP_NONE );
+
+        SDL_RenderCopyEx( renderer, botS, 0, &DP,  0, NULL, SDL_FLIP_NONE );
+        SDL_RenderCopyEx( renderer, topS, 0, &TP,  0, NULL, SDL_FLIP_NONE );
 
 
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        //SDL_RenderCopyEx( renderer, NULL, nullptr, &rect2,  , NULL, SDL_FLIP_NONE );
         SDL_RenderFillRect(renderer, &rect2);
+
+
+        //SDL_RenderCopyEx( renderer, NULL, nullptr, &rect2,  , NULL, SDL_FLIP_NONE );
 
 
         SDL_RenderPresent(renderer);
@@ -116,12 +141,14 @@ int main() {
 
         if (rect.x + rect.w < width) {
 
-        X += speed1.x * d * 300 ;
+        X += speed1.x * d * 300.0 ;
 
 
             rect.x = X;
             rect2.x =X;
-
+            //TP.x = X;
+            //DP.x = X;
+            // rect3.x = X;
 
     } else rect.x = width-rect.w;
 

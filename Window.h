@@ -10,14 +10,17 @@ class Window {
 
 private:
 
-    const int Height = 720;
-
-    const int Width = 720;
 
 
 public:
 
-    Window ( int Height , int Width) : Height(Height),Width(Width) {};
+    static const int Height = 720;
+
+    static const int Width = 720;
+
+
+
+    //Window ( ) : Height(Height),Width(Width) {};
 
 
 
