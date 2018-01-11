@@ -4,8 +4,8 @@
 #include <SDL_image.h>
 #include <bits/unique_ptr.h>
 #include "DeltaTimer.h"
-static int width = 720;
-static int height = 480;
+static int width = 2*288;
+static int height = 2*384;
 
 
 struct Opak
@@ -32,7 +32,7 @@ int main() {
         double y;
     };
 
-    speed speed1(0.5,0.8);
+    speed speed1(0.5,0.01);
 
 
 
@@ -45,7 +45,7 @@ int main() {
     SDL_Rect rect2 ={0,0,40,40};
 //
     double X=0.;
-    double Y=0.;
+    double Y=height/2.;
 
     SDL_Window *win = NULL;
     SDL_Renderer *renderer = NULL;
@@ -90,17 +90,20 @@ int main() {
 
     SDL_FreeSurface(bitmapSurface);
 
-    SDL_Rect TP = {width-40,0,40,90};
-    SDL_Rect DP = {width-40,height/2,40,height-height/2};
+    SDL_Rect TP = {width-52,0,40*2,100*2};
+    SDL_Rect DP = {width-52,height-100,40*2,2*100};
 
     SDL_FreeSurface(bitmapSurface2);
 
-    Timer timer;
 
-    SDL_Rect rect3 = {0,height/2,40,40};
+    SDL_Rect rect3 = {0,height/2,2*36,2*26};
 
+    double PipespeedX = -0.5;
+    double pipeX = width;
     int count=0;
     int state = 0;
+    Timer timer;
+
     while (1) {
 
         count++;
@@ -110,6 +113,14 @@ int main() {
             if (e.type == SDL_QUIT) {
                 break;
             }
+
+
+            const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+            if( currentKeyStates[ SDL_SCANCODE_UP ] )
+            {
+                speed1.y += -0.7;
+            }
+
         }
 
 
@@ -126,8 +137,8 @@ int main() {
         SDL_RenderCopyEx( renderer, topS, 0, &TP,  0, NULL, SDL_FLIP_NONE );
 
 
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_RenderFillRect(renderer, &rect2);
+       // SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+     //   SDL_RenderFillRect(renderer, &rect2);
 
 
         //SDL_RenderCopyEx( renderer, NULL, nullptr, &rect2,  , NULL, SDL_FLIP_NONE );
@@ -135,22 +146,33 @@ int main() {
 
         SDL_RenderPresent(renderer);
 
-
-
+       // SDL_Inter
+       // std::cout<< SDL_HasIntersection(&rect2,&TP);
         double d = timer.GetDelta();
 
-        if (rect.x + rect.w < width) {
+        if (rect2.x + rect2.w < width || TP.x>0) {
 
         X += speed1.x * d * 300.0 ;
 
+            pipeX += PipespeedX * d * 300.0;
 
             rect.x = X;
             rect2.x =X;
-            //TP.x = X;
-            //DP.x = X;
-            // rect3.x = X;
+
+            TP.x = pipeX;
+            DP.x = pipeX;
+         //    rect3.x = X;
 
     } else rect.x = width-rect.w;
+
+
+        if (rect3.y + rect3.h < height && rect3.y - rect3.h > 0) {
+
+            Y += ( d * speed1.y *310.0);
+            rect3.y = Y;
+
+        } else rect3.y = height-rect3.h;
+        speed1.y += 0.0005;
 
         //milliseconds mSec(d);
 

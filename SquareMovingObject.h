@@ -43,8 +43,9 @@ public:
 
     virtual void Update(double deltaTime );
 
-    virtual void Render( SDL_Renderer& ) = 0;
+    virtual void Render( SDL_Renderer* ) = 0;
 
+    virtual bool Intersects(const SquareMovingObject& o2 ) const ;
 
     double getX() const;
 };
@@ -63,7 +64,7 @@ SquareMovingObject::SquareMovingObject(int x, int y, int h, int w, int xSpd, int
 }
 
 
-void SquareMovingObject::Update(double deltaTime) {
+void SquareMovingObject::Update( const double deltaTime ) {
 
     if (rect.x + rect.w < Window::Width)
     {
@@ -81,6 +82,12 @@ void SquareMovingObject::Update(double deltaTime) {
     }
 
 }
+
+bool SquareMovingObject::Intersects(const SquareMovingObject& o2) const {
+    return SDL_HasIntersection( &this->rect, &o2.rect );
+}
+
+
 
 double SquareMovingObject::getX() const {
     return x;
@@ -118,7 +125,6 @@ double SquareMovingObject::getYSpeed() const {
 void SquareMovingObject::setYSpeed(double ySpeed) {
     SquareMovingObject::ySpeed = ySpeed;
 }
-
 
 
 
