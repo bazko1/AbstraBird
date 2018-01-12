@@ -8,9 +8,12 @@
 
 #include "SquareMovingObject.h"
 
+
 SquareMovingObject::SquareMovingObject(int x, int y, int h, int w, double xSpd, double ySpd) :
         xSpeed(xSpd),ySpeed(ySpd)
 {
+
+
 
     this->x = static_cast<double > (x);
 
@@ -24,25 +27,9 @@ SquareMovingObject::SquareMovingObject(int x, int y, int h, int w, double xSpd, 
 }
 
 
-void SquareMovingObject::Update( const double deltaTime ) {
-
-    double c = Game::speedConst;
-
-    y += ySpeed * deltaTime * c;
-    x += xSpeed * deltaTime * c;
-
-    rect.x = x;
-
-
-    rect.y = y;
-
-
-
-}
-
-bool SquareMovingObject::Intersects(const SquareMovingObject& o2) const {
-    return SDL_HasIntersection( &this->rect, &o2.rect );
-}
+//bool SquareMovingObject::Intersects(const SquareMovingObject& o2) const {
+//    return SDL_HasIntersection( &this->rect, &o2.rect );
+//}
 
 
 
@@ -86,21 +73,23 @@ void SquareMovingObject::setYSpeed(double ySpd) {
 
 }
 
-void SquareMovingObject::setRectX(int x ) {
+void SquareMovingObject::Update(const double deltaTime) {
 
-    this->rect.x = x;
+
+    double c = 300; //Game::speedConst;
+
+    y += ySpeed * deltaTime * c;
+    x += xSpeed * deltaTime * c;
+
+    rect.x = x;
+
+
+    rect.y = y;
+
+
+
+
 }
 
-void SquareMovingObject::setRectY(int y) {
-    this->rect.y=y;
-}
 
-void SquareMovingObject::setRectH(int h) {
-
-        this->rect.h = h;
-}
-
-void SquareMovingObject::setRectW(int w) {
-    this->rect.w = w;
-}
 

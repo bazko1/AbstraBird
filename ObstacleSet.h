@@ -10,9 +10,13 @@
 
 #include <vector>
 #include "Obstacle.h"
-template <typename T>
-class ObstacleSet   {
 
+template <typename G >
+class ObstacleSet    {
+
+
+
+    std::vector <Obstacle> obstacles;
 private:
 
   //  std::vector <Obstacle> obstacles;

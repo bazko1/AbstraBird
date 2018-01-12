@@ -3,6 +3,12 @@
 //
 
 #include "GameLogic.h"
-#include "ObstacleSet.h"
+
+void GameLogic::update() {
 
 
+
+
+
+
+}

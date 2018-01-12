@@ -4,8 +4,8 @@
 
 #include "ObstacleSet.h"
 
-template <typename T>
-template<typename Generate>
-void ObstacleSet<T>::AddObstacle() {
 
-}
+//template<typename Generate>
+//void ObstacleSet::AddObstacle() {
+//
+//}

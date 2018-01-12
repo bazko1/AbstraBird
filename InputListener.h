@@ -8,7 +8,29 @@
 
 class InputListener {
 
+private:
 
+    bool jumped= false;
+
+public:
+    bool hasJumped() const;
+
+    bool isPause() const;
+
+    bool isGameFinished() const;
+
+    bool isGameStarted() const;
+
+private:
+
+    bool pause= false;
+
+    bool gameFinished= false;
+
+    bool gameStarted = false;
+
+public:
+    void checkInput();
 
 
 };

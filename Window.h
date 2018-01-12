@@ -29,6 +29,7 @@ public:
 
     Window ();
 
+    virtual ~Window();
 
 
 

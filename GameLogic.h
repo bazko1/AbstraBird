@@ -6,18 +6,26 @@
 #define ABSTRABIRD_GAMELOGIC_H
 
 
-#include "IIntersects.h"
-#include "ObstacleSet.h"
-template <typename T>
-class GameLogic : IIntersects<T> {
+#include <vector>
+#include "Bird.h"
+
+class GameLogic {
 
 
-bool lost = false;
-
-
+    Bird& bird;
+    std::vector<Obstacle>& obstacles;
 
 
 public:
+
+    GameLogic ( Bird&b ,std::vector<Obstacle>& obs  ) : bird(b) , obstacles(obs){
+
+    }
+
+    void update();
+
+private:
+
 
 
 };

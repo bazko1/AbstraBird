@@ -1,21 +1,14 @@
 //
-// Created by bazyli on 1/6/18.
+// Created by bazyli on 1/12/18.
 //
 
-#ifndef ABSTRABIRD_IMOVABLE_H
-#define ABSTRABIRD_IMOVABLE_H
+#ifndef ABSTRABIRD_IUPDATE_H
+#define ABSTRABIRD_IUPDATE_H
 
-
-class IUpdate {
-
+class IUpdate{
 public:
-    virtual void Update () = 0;
-
-
+    virtual void update(const double) =0;
 
 };
 
-
-
-
-#endif //ABSTRABIRD_IMOVABLE_H
+#endif //ABSTRABIRD_IUPDATE_H

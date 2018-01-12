@@ -10,47 +10,47 @@
 #include "GameLogic.h"
 #include "ObstacleSet.h"
 #include "InputListener.h"
+#include "Obstacle.h"
 
-
-class Game {
+class Game : public IUpdate {
 
 private:
 
     Window window;
 
-//    GameLogic<T>& gameLogic;
-//
-//    //Bird<T>& bird;
-//
-//    ObstacleSet<T>& obstacles;
-//
-//    InputListener& listener;
+    InputListener listener;
+
+    std::vector<Obstacle>& obstacles;
+
+    Bird& bird;
 
     SDL_Renderer* renderer = NULL;
 
-
+    int points;
 
     bool isPaused = false;
 
     bool finished = false;
+
 
 public:
 
     constexpr static const double speedConst = 500.;
 
 
-    //Game ( Window& w ,  Bird<T>& b , GameLogic<T>& logic , ObstacleSet<T>& obstacleSet , InputListener& listener );
 
-    Game();
+
+    Game(Bird& , std::vector<Obstacle>& obs );
 
     void Start();
 
-    void Pause();
-
     void mainLoop();
 
-    void Render();
+    void update(const double d) override;
 
+    void render() ;
+
+    ~Game();
 };
 
 

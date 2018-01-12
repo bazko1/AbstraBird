@@ -5,32 +5,34 @@
 #ifndef ABSTRABIRD_SQUAREOBJECT_H
 #define ABSTRABIRD_SQUAREOBJECT_H
 
-#include <SDL_rect.h>
-#include <SDL_system.h>
-#include <iostream>
-#include "Game.h"
 
+#include "SquareObject.h"
+#include "IUpdate.h"
+#include "IRenderable.h"
 
-class SquareMovingObject {
-
+class SquareMovingObject : public SquareObject , public IUpdate , public IRenderable  {
 private:
 
-    double x;
+    double x; // For accuracy
 
-    double y;
+    double y; // ^
 
     SDL_Rect rect;
 
-    double xSpeed; // -1 .. 1
 
-    double ySpeed;// -1 .. 1
+    double xSpeed; //
+
+    double ySpeed;//
 
 public:
 
+    SquareMovingObject(){}
     SquareMovingObject( int x , int y , int h , int w, double xSpd , double ySpd);
     void setX(double x);
 
     double getY() const;
+
+    virtual void Update(const double deltaTime);
 
     void setY(double y);
 
@@ -44,18 +46,11 @@ public:
 
     void setYSpeed(double ySpeed);
 
-    virtual void Update(double deltaTime );
-
-    virtual void Render( SDL_Renderer* ) = 0;
-
-    virtual bool Intersects(const SquareMovingObject& o2 ) const ;
+    //virtual bool Intersects(const SquareMovingObject& o2 ) const ;
 
     double getX() const;
 
-    void setRectX(int );
-    void setRectY(int );
-    void setRectH(int );
-    void setRectW(int );
+
 
 };
 

@@ -3,6 +3,7 @@
 //
 
 #include <SDL.h>
+#include <netinet/in.h>
 #include "Window.h"
 
 Window::Window() {
@@ -18,5 +19,13 @@ Window::Window() {
 SDL_Window *Window::getSdl_window() const {
     return sdl_window;
 }
+
+Window::~Window() {
+
+    SDL_DestroyWindow(this->sdl_window);
+
+};
+
+
 
 

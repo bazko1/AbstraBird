@@ -3,7 +3,7 @@ project(AbstraBird)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp IDrawable.h IIntersects.h Obstacle.h ObstacleSet.cpp ObstacleSet.h IUpdate.h GameLogic.cpp GameLogic.h Window.cpp Window.h Game.cpp Game.h InputListener.cpp InputListener.h Pipe.cpp Pipe.h DeltaTimer.h Renderer.cpp Renderer.h SquareMovingObject.h RectBird.h SquareMovingObject.cpp Pipes.h)
+set(SOURCE_FILES main.cpp Window.h Window.cpp DeltaTimer.h SquareObject.h SquareObject.cpp ObstacleSet.h ObstacleSet.cpp  GameLogic.cpp GameLogic.h Game.cpp Game.h InputListener.cpp InputListener.h SquareMovingObject.h SquareMovingObject.cpp RectBird.h Bird.cpp Bird.h  Obstacle.cpp Obstacle.h Pipes.h IIntersects.h IUpdate.h IRenderable.h)
 add_executable(AbstraBird ${SOURCE_FILES})
 
 INCLUDE(FindPkgConfig)

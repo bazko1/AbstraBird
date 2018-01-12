@@ -3,10 +3,15 @@
 #include <chrono>
 #include <SDL_image.h>
 #include <bits/unique_ptr.h>
+#include <vector>
 #include "DeltaTimer.h"
-
-#include "RectBird.h"
+#include "Obstacle.h"
 #include "Pipes.h"
+#include "RectBird.h"
+#include "Game.h"
+
+//#include "RectBird.h"
+//#include "Pipes.h"
 
 static int width = 2*288;
 static int height = 2*384;
@@ -28,45 +33,45 @@ int main() {
 
 
 
-    struct speed {
-
-        speed (double x , double y) : x(x),y(y){};
-
-        double x;
-        double y;
-    };
-
-    speed speed1(0.5,0.01);
-
-
-
-    SDL_Rect rect;
-    rect.w=120;
-    rect.h=40;
-    rect.x=0;
-    rect.y=height/2;
-
-    SDL_Rect rect2 ={0,0,40,40};
+//    struct speed {
 //
-    double X=0.;
-    double Y=height/2.;
-
-    SDL_Window *win = NULL;
-    SDL_Renderer *renderer = NULL;
-    SDL_Texture *bitmapTex = NULL;
-    SDL_Texture *bitmapTex2 = NULL;
-    SDL_Surface *bitmapSurface = NULL;
-    SDL_Surface *bitmapSurface2 = NULL;
-
-
-    SDL_Init(SDL_INIT_EVERYTHING);
-
-    win = SDL_CreateWindow("Abstra Bird", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
-
-    renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
-
-
-    bitmapSurface = IMG_Load("/home/bazyli/CLionProjects/AbstraBird/Pictures/bg.png");
+//        speed (double x , double y) : x(x),y(y){};
+//
+//        double x;
+//        double y;
+//    };
+//
+//    speed speed1(0.5,0.01);
+//
+//
+//
+//    SDL_Rect rect;
+//    rect.w=120;
+//    rect.h=40;
+//    rect.x=0;
+//    rect.y=height/2;
+//
+//    SDL_Rect rect2 ={0,0,40,40};
+////
+//    double X=0.;
+//    double Y=height/2.;
+//
+//    SDL_Window *win = NULL;
+//    SDL_Renderer *renderer = NULL;
+//    SDL_Texture *bitmapTex = NULL;
+//    SDL_Texture *bitmapTex2 = NULL;
+//    SDL_Surface *bitmapSurface = NULL;
+//    SDL_Surface *bitmapSurface2 = NULL;
+//
+//
+//    SDL_Init(SDL_INIT_EVERYTHING);
+//
+//    win = SDL_CreateWindow("Abstra Bird", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
+//
+//    renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
+//
+//
+//    bitmapSurface = IMG_Load("/home/bazyli/CLionProjects/AbstraBird/Pictures/bg.png");
 
     //bitmapSurface2 = SDL_LoadBMP("/home/bazyli/CLionProjects/AbstraBird/Pictures/Bird2.bmp");
 
@@ -90,89 +95,90 @@ int main() {
 //    bitmapTex2 = SDL_CreateTextureFromSurface(renderer,bitmapSurface2);
 
     //SDL_Texture
-    std::cout<<bitmapSurface;
-
-    SDL_FreeSurface(bitmapSurface);
-
-    SDL_Rect TP = {width-52,0,40*2,100*2};
-    SDL_Rect DP = {width-52,height-100,40*2,2*100};
-
-    SDL_FreeSurface(bitmapSurface2);
-
-
-    SDL_Rect rect3 = {0,height/2,2*36,2*26};
-
-    double PipespeedX = -0.5;
-    double pipeX = width;
-
-
-    RectFillBird bird(0,height/2,40,40,0,0);
-    Timer timer;
-    bird.setYSpeed ( 0 );
-   bird.setY( height/2 );
-
-    double gravity = 0.09;
- std::cout<<bird.getRect().y;
-
-    Obstacle<SquareFilledPipe,SquareFilledPipe> obstacle(width,height,300,40);
-
-
-    bool  start = false;
-    while (1) {
-
-
-        bool up = false;
-        SDL_Event e;
-        if (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                break;
-            }
-
-            if ( e.type == SDL_KEYDOWN)
-                start= true;
-
-            const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-            if( currentKeyStates[ SDL_SCANCODE_UP ] )
-            {
-               up = true;
-            }
-
-        }
-
-
-        //if ( bird.getYSpeed() < gravity )
-        double  delta = timer.GetDelta();
-
-        //if ( bird.getYSpeed() < gravity ) {
-
-            if ( up  )
-                bird.setYSpeed( -1 );
-
-
-         if( bird.Intersects( obstacle.getTop() ) || bird.Intersects( obstacle.getBot() )  )
-                start = false;
-
-
-        if ( start)
-            {
-                double speed = bird.getYSpeed() + 0.5 * gravity * gravity;
-
-                bird.setYSpeed(speed);
-                bird.Update(  delta);
-                obstacle.Update(delta);
-
-            }
-
-
-
-
-
-
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_RenderClear(renderer);
-        bird.Render( renderer  );
-        obstacle.Render(renderer);
-        SDL_RenderPresent(renderer);
+//    std::cout<<bitmapSurface;
+//
+//    SDL_FreeSurface(bitmapSurface);
+//
+//    SDL_Rect TP = {width-52,0,40*2,100*2};
+//    SDL_Rect DP = {width-52,height-100,40*2,2*100};
+//
+//    SDL_FreeSurface(bitmapSurface2);
+//
+//
+//    SDL_Rect rect3 = {0,height/2,2*36,2*26};
+//
+//    double PipespeedX = -0.5;
+//    double pipeX = width;
+//
+//
+//    RectFillBird bird(0,height/2,40,40,0,0);
+//    Timer timer;
+//    bird.setYSpeed ( 0 );
+//   bird.setY( height/2 );
+//
+//    double gravity = 0.09;
+// std::cout<<bird.getRect().y;
+//
+//    Obstacle obstacle(width,height,300,40);
+//
+//
+//
+//    bool  start = false;
+//    while (1) {
+//
+//
+//        bool up = false;
+//        SDL_Event e;
+//        if (SDL_PollEvent(&e)) {
+//            if (e.type == SDL_QUIT) {
+//                break;
+//            }
+//
+//            if ( e.type == SDL_KEYDOWN)
+//                start= true;
+//
+//            const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+//            if( currentKeyStates[ SDL_SCANCODE_UP ] )
+//            {
+//               up = true;
+//            }
+//
+//        }
+//
+//
+//        //if ( bird.getYSpeed() < gravity )
+//        double  delta = timer.GetDelta();
+//
+//        //if ( bird.getYSpeed() < gravity ) {
+//
+//            if ( up  )
+//                bird.setYSpeed( -1 );
+//
+//
+//         if( bird.Intersects( obstacle.getTop() ) || bird.Intersects( obstacle.getBot() )  )
+//                start = false;
+//
+//
+//        if ( start)
+//            {
+//                double speed = bird.getYSpeed() + 0.5 * gravity * gravity;
+//
+//                bird.setYSpeed(speed);
+//                bird.Update(  delta);
+//                obstacle.Update(delta);
+//
+//            }
+//
+//
+//
+//
+//
+//
+//        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+//        SDL_RenderClear(renderer);
+//        bird.render( renderer  );
+//        obstacle.Render(renderer);
+//        SDL_RenderPresent(renderer);
 
 
 
@@ -233,15 +239,26 @@ int main() {
 
         //IMG_Load()
 
-    }
+   // }
 
 
 
-    SDL_DestroyTexture(bitmapTex);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(win);
+//    SDL_DestroyTexture(bitmapTex);
 
-    SDL_Quit();
+
+    //Obstacle p;
+    //SquareMovingObject*obj;
+    SquareFilledPipe pipe;
+    SquareFilledPipe pipe2;
+
+    Obstacle o (width,height, pipe , pipe2 );
+
+    std::vector <Obstacle> vector = {o};
+
+    RectFillBird bird;
+
+    Game game(bird,vector);
+
 
     return 0;
 
