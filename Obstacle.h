@@ -19,17 +19,36 @@ class Obstacle {
 
 public:
 
-    Obstacle( int WinWidth , int WinHeight ) : top(WinWidth) , bot(WinWidth) {
+    Obstacle( int WinWidth , int WinHeight , int Height , int Width )  {
 
 
+        // Poczatkowe ustawienie x
+        top.SetRectX( WinWidth );
+        bot.SetRectX( WinWidth );
+
+        // Wysokosc obiektow
+        top.SetRectH(Height);
+        bot.SetRectH(Height);
+
+        // Szeroosc obiektow
+        top.SetRectW(Width);
+        bot.SetRectW(Width);
+
+        // Poczatkowe Ustawienie gornego
+        top.SetRectY ( WinHeight - top.getRect().h );
+
+        // Y - do metody Update - musi
         top.setY ( WinHeight-top.getRect().h );
 
+        // X - do metody update
         top.setX( WinWidth );
         bot.setX( WinWidth );
 
+        // speed x
         top.setXSpeed(-0.1);
         bot.setXSpeed(-0.1);
 
+        // y speed =  0
 
     }
 

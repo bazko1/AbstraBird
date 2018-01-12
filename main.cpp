@@ -114,7 +114,7 @@ int main() {
     double gravity = 0.09;
  std::cout<<bird.getRect().y;
 
-    Obstacle<SquareFilledPipe,SquareFilledPipe> obstacle(width,height);
+    Obstacle<SquareFilledPipe,SquareFilledPipe> obstacle(width,height,40,40);
 
 
     bool  start = false;

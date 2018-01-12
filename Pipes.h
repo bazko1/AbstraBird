@@ -10,7 +10,7 @@
 class SquareFilledPipe : public SquareMovingObject {
 
 public:
-    SquareFilledPipe(int WindowWidth) : SquareMovingObject(WindowWidth,0,40,20,0,0) {
+    SquareFilledPipe() : SquareMovingObject(0,0,0,0,0,0) {
 
     }
 
