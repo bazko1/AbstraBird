@@ -14,6 +14,7 @@ public:
 
     }
 
+
     void Render(SDL_Renderer *renderer) override {
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderFillRect( renderer , &this->getRect() );

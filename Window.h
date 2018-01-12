@@ -9,6 +9,9 @@
 #include <SDL_video.h>
 #include <SDL.h>
 
+const static int Height = 2*384;
+const static int Width = 2*288;
+
 class Window {
 
 private:

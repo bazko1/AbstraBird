@@ -114,7 +114,7 @@ int main() {
     double gravity = 0.09;
  std::cout<<bird.getRect().y;
 
-    Obstacle<SquareFilledPipe,SquareFilledPipe> obstacle(width,height,40,40);
+    Obstacle<SquareFilledPipe,SquareFilledPipe> obstacle(width,height,300,40);
 
 
     bool  start = false;
@@ -148,13 +148,19 @@ int main() {
             if ( up  )
                 bird.setYSpeed( -1 );
 
-            if ( start)
+
+         if( bird.Intersects( obstacle.getTop() ) || bird.Intersects( obstacle.getBot() )  )
+                start = false;
+
+
+        if ( start)
             {
                 double speed = bird.getYSpeed() + 0.5 * gravity * gravity;
 
                 bird.setYSpeed(speed);
                 bird.Update(  delta);
                 obstacle.Update(delta);
+
             }
 
 

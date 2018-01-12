@@ -52,10 +52,10 @@ public:
 
     double getX() const;
 
-    void SetRectX(int );
-    void SetRectY(int );
-    void SetRectH(int );
-    void SetRectW(int );
+    void setRectX(int );
+    void setRectY(int );
+    void setRectH(int );
+    void setRectW(int );
 
 };
 

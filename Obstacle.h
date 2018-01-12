@@ -16,26 +16,28 @@ class Obstacle {
     T top;
     B bot;
 
+    int winWidth;
+    int winHeight;
 
 public:
 
-    Obstacle( int WinWidth , int WinHeight , int Height , int Width )  {
+    Obstacle( int WinWidth , int WinHeight , int Height , int Width )  : winHeight(WinHeight) , winWidth(WinWidth) {
 
 
         // Poczatkowe ustawienie x
-        top.SetRectX( WinWidth );
-        bot.SetRectX( WinWidth );
+        top.setRectX( WinWidth );
+        bot.setRectX( WinWidth );
 
         // Wysokosc obiektow
-        top.SetRectH(Height);
-        bot.SetRectH(Height);
+        top.setRectH(Height);
+        bot.setRectH(Height);
 
         // Szeroosc obiektow
-        top.SetRectW(Width);
-        bot.SetRectW(Width);
+        top.setRectW(Width);
+        bot.setRectW(Width);
 
         // Poczatkowe Ustawienie gornego
-        top.SetRectY ( WinHeight - top.getRect().h );
+        top.setRectY ( WinHeight - top.getRect().h );
 
         // Y - do metody Update - musi
         top.setY ( WinHeight-top.getRect().h );
@@ -44,9 +46,9 @@ public:
         top.setX( WinWidth );
         bot.setX( WinWidth );
 
-        // speed x
-        top.setXSpeed(-0.1);
-        bot.setXSpeed(-0.1);
+        // speed x // should be in arguments
+        top.setXSpeed(-0.4);
+        bot.setXSpeed(-0.4);
 
         // y speed =  0
 
@@ -59,6 +61,13 @@ public:
         top.Update(deltaTime);
         bot.Update(deltaTime);
 
+        if ( top.getX() + top.getRect().h < 0)
+            top.setX ( winWidth  );
+
+        if ( bot.getX() + bot.getRect().h < 0)
+            bot.setX ( winWidth  );
+
+
     }
 
     void Render ( SDL_Renderer* renderer){
@@ -66,6 +75,15 @@ public:
         top.Render(renderer);
         bot.Render(renderer);
     }
+
+    T getTop() const {
+        return top;
+    }
+
+    B getBot() const {
+        return bot;
+    }
+
 
 
 };

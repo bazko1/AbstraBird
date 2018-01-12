@@ -31,19 +31,12 @@ void SquareMovingObject::Update( const double deltaTime ) {
     y += ySpeed * deltaTime * c;
     x += xSpeed * deltaTime * c;
 
-    //  if ( x + rect.w < Window::Width && x >=0  )
-    // {
-
     rect.x = x;
 
-    // }
-
-
-    //  if ( y + rect.h <= Window::Height && y >=0 )
-    // {
 
     rect.y = y;
-    // }
+
+
 
 }
 
@@ -93,21 +86,21 @@ void SquareMovingObject::setYSpeed(double ySpd) {
 
 }
 
-void SquareMovingObject::SetRectX(int x ) {
+void SquareMovingObject::setRectX(int x ) {
 
     this->rect.x = x;
 }
 
-void SquareMovingObject::SetRectY(int y) {
+void SquareMovingObject::setRectY(int y) {
     this->rect.y=y;
 }
 
-void SquareMovingObject::SetRectH(int h) {
+void SquareMovingObject::setRectH(int h) {
 
         this->rect.h = h;
 }
 
-void SquareMovingObject::SetRectW(int w) {
+void SquareMovingObject::setRectW(int w) {
     this->rect.w = w;
 }
 
