@@ -8,6 +8,8 @@
 
 #include "IDrawable.h"
 #include "IUpdate.h"
+#include "SquareMovingObject.h"
+
 template <typename T>
 class Pipe : IDrawable {
 
@@ -36,6 +38,8 @@ public:
 
     void Move(int dx, int dy);
 };
+
+
 
 
 #endif //ABSTRABIRD_PIPE_H

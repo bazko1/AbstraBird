@@ -8,22 +8,50 @@
 
 #include "Pipe.h"
 #include "IUpdate.h"
-template <typename T>
-class Obstacle : IUpdate {
+#include "SquareMovingObject.h"
 
-    T dx;
+template <typename T , typename B >
+class Obstacle {
 
-    T dy;
+    T top;
+    B bot;
 
-    Pipe<T> top;
-
-    Pipe<T> bottom;
 
 public:
-    void Update() override;
+
+    Obstacle(){
+
+
+        top.setY ( Window::Height-top.getRect().h );
+
+        top.setX( Window::Width);
+        bot.setX( Window::Width);
+
+        top.setXSpeed(-0.1);
+        bot.setXSpeed(-0.1);
+
+
+    }
+
+    void Update( const double deltaTime )  {
+
+        top.Update(deltaTime);
+        bot.Update(deltaTime);
+
+    }
+
+    void Render ( SDL_Renderer* renderer){
+
+        top.Render(renderer);
+        bot.Render(renderer);
+    }
 
 
 };
+
+
+
+
 
 
 #endif //ABSTRABIRD_OBSTACLE_H

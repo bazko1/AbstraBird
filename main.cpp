@@ -4,6 +4,10 @@
 #include <SDL_image.h>
 #include <bits/unique_ptr.h>
 #include "DeltaTimer.h"
+
+#include "RectBird.h"
+#include "Pipes.h"
+
 static int width = 2*288;
 static int height = 2*384;
 
@@ -62,28 +66,28 @@ int main() {
     renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
 
 
-    bitmapSurface = IMG_Load("/home/bazyli/Desktop/abstapicsts/bg.png");
+    bitmapSurface = IMG_Load("/home/bazyli/CLionProjects/AbstraBird/Pictures/bg.png");
 
     //bitmapSurface2 = SDL_LoadBMP("/home/bazyli/CLionProjects/AbstraBird/Pictures/Bird2.bmp");
 
-    bitmapSurface2 = IMG_Load("/home/bazyli/Desktop/abstapicsts/bird_sing.png");
-
-    SDL_Surface* top = IMG_Load("/home/bazyli/Desktop/abstapicsts/tube1.png");
-
-    SDL_Surface* bot = IMG_Load("/home/bazyli/Desktop/abstapicsts/tube2.png");
-
-    SDL_Surface* ground= IMG_Load("/home/bazyli/Desktop/abstapicsts/ground.png");
-
-
-    SDL_Texture* topS = SDL_CreateTextureFromSurface ( renderer , top);
-
-    SDL_Texture* botS = SDL_CreateTextureFromSurface ( renderer , bot);
-
-    SDL_Texture* groundS = SDL_CreateTextureFromSurface ( renderer , bot);
-
-    bitmapTex = SDL_CreateTextureFromSurface(renderer, bitmapSurface);
-
-    bitmapTex2 = SDL_CreateTextureFromSurface(renderer,bitmapSurface2);
+//    bitmapSurface2 = IMG_Load("/home/bazyli/Desktop/abstapicsts/bird_sing.png");
+//
+//    SDL_Surface* top = IMG_Load("/home/bazyli/Desktop/abstapicsts/tube1.png");
+//
+//    SDL_Surface* bot = IMG_Load("/home/bazyli/Desktop/abstapicsts/tube2.png");
+//
+//    SDL_Surface* ground= IMG_Load("/home/bazyli/Desktop/abstapicsts/ground.png");
+//
+//
+//    SDL_Texture* topS = SDL_CreateTextureFromSurface ( renderer , top);
+//
+//    SDL_Texture* botS = SDL_CreateTextureFromSurface ( renderer , bot);
+//
+//    SDL_Texture* groundS = SDL_CreateTextureFromSurface ( renderer , bot);
+//
+//    bitmapTex = SDL_CreateTextureFromSurface(renderer, bitmapSurface);
+//
+//    bitmapTex2 = SDL_CreateTextureFromSurface(renderer,bitmapSurface2);
 
     //SDL_Texture
     std::cout<<bitmapSurface;
@@ -100,42 +104,80 @@ int main() {
 
     double PipespeedX = -0.5;
     double pipeX = width;
-    int count=0;
-    int state = 0;
-    Timer timer;
 
+
+    RectFillBird bird(0,height/2,40,40,0,0);
+    Timer timer;
+    bird.setYSpeed ( 0 );
+   bird.setY( height/2 );
+
+    double gravity = 0.09;
+ std::cout<<bird.getRect().y;
+
+    Obstacle<SquareFilledPipe,SquareFilledPipe> obstacle;
+
+
+    bool  start = false;
     while (1) {
 
-        count++;
 
+        bool up = false;
         SDL_Event e;
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 break;
             }
 
+            if ( e.type == SDL_KEYDOWN)
+                start= true;
 
             const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
             if( currentKeyStates[ SDL_SCANCODE_UP ] )
             {
-                speed1.y += -0.7;
+               up = true;
             }
 
         }
 
 
+        //if ( bird.getYSpeed() < gravity )
+        double  delta = timer.GetDelta();
 
-       // SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+        //if ( bird.getYSpeed() < gravity ) {
+
+            if ( up  )
+                bird.setYSpeed( -1 );
+
+            if ( start)
+            {
+                double speed = bird.getYSpeed() + 0.5 * gravity * gravity;
+
+                bird.setYSpeed(speed);
+                bird.Update(  delta);
+                obstacle.Update(delta);
+            }
+
+
+
+
+
+
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderClear(renderer);
+        bird.Render( renderer  );
+        obstacle.Render(renderer);
+        SDL_RenderPresent(renderer);
 
-        SDL_RenderCopy(renderer, bitmapTex, NULL, NULL);
 
 
-        SDL_RenderCopyEx( renderer, bitmapTex2, 0, &rect3,  0, NULL, SDL_FLIP_NONE );
-
-        SDL_RenderCopyEx( renderer, botS, 0, &DP,  0, NULL, SDL_FLIP_NONE );
-        SDL_RenderCopyEx( renderer, topS, 0, &TP,  0, NULL, SDL_FLIP_NONE );
-
+//        SDL_RenderCopy(renderer, bitmapTex, NULL, NULL);
+//
+//
+//        SDL_RenderCopyEx( renderer, bitmapTex2, 0, &rect3,  0, NULL, SDL_FLIP_NONE );
+//
+//        SDL_RenderCopyEx( renderer, botS, 0, &DP,  0, NULL, SDL_FLIP_NONE );
+//        SDL_RenderCopyEx( renderer, topS, 0, &TP,  0, NULL, SDL_FLIP_NONE );
+//
 
        // SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
      //   SDL_RenderFillRect(renderer, &rect2);
@@ -144,35 +186,35 @@ int main() {
         //SDL_RenderCopyEx( renderer, NULL, nullptr, &rect2,  , NULL, SDL_FLIP_NONE );
 
 
-        SDL_RenderPresent(renderer);
 
-       // SDL_Inter
-       // std::cout<< SDL_HasIntersection(&rect2,&TP);
-        double d = timer.GetDelta();
-
-        if (rect2.x + rect2.w < width || TP.x>0) {
-
-        X += speed1.x * d * 300.0 ;
-
-            pipeX += PipespeedX * d * 300.0;
-
-            rect.x = X;
-            rect2.x =X;
-
-            TP.x = pipeX;
-            DP.x = pipeX;
-         //    rect3.x = X;
-
-    } else rect.x = width-rect.w;
-
-
-        if (rect3.y + rect3.h < height && rect3.y - rect3.h > 0) {
-
-            Y += ( d * speed1.y *310.0);
-            rect3.y = Y;
-
-        } else rect3.y = height-rect3.h;
-        speed1.y += 0.0005;
+//
+//       // SDL_Inter
+//       // std::cout<< SDL_HasIntersection(&rect2,&TP);
+//        double d = timer.GetDelta();
+//
+//        if (rect2.x + rect2.w < width || TP.x>0) {
+//
+//        X += speed1.x * d * 300.0 ;
+//
+//            pipeX += PipespeedX * d * 300.0;
+//
+//            rect.x = X;
+//            rect2.x =X;
+//
+//            TP.x = pipeX;
+//            DP.x = pipeX;
+//         //    rect3.x = X;
+//
+//    } else rect.x = width-rect.w;
+//
+//
+//        if (rect3.y + rect3.h < height && rect3.y - rect3.h > 0) {
+//
+//            Y += ( d * speed1.y *310.0);
+//            rect3.y = Y;
+//
+//        } else rect3.y = height-rect3.h;
+//        speed1.y += 0.0005;
 
         //milliseconds mSec(d);
 
@@ -198,8 +240,5 @@ int main() {
     return 0;
 
 
-
-
-    return 0;
 
 }

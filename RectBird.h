@@ -8,16 +8,24 @@
 
 #include "SquareMovingObject.h"
 
-class RectFillBird : SquareMovingObject {
+class RectFillBird : public SquareMovingObject {
+
+private:
+
+
 
 public:
 
-    RectFillBird( int x , int y , int h , int w, int xSpd , int ySpd)   :
-            SquareMovingObject( x ,y , h , w,xSpd , ySpd) {}
+    RectFillBird( int x , int y , int h , int w, double xSpd , double ySpd)   :
+            SquareMovingObject( x ,y , h , w , xSpd , ySpd) {}
 
-private:
+
+    RectFillBird() : RectFillBird ( 0 , 0 , 40 , 40 , 0 , 0.0 ) {}
+
+
     void Render(SDL_Renderer* renderer) override {
 
+        SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderFillRect( renderer , &this->getRect() );
 
     };
@@ -25,7 +33,7 @@ private:
 
 };
 
-class RectBird : SquareMovingObject {
+class RectBird : public SquareMovingObject {
 
 public:
 

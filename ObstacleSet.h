@@ -11,7 +11,7 @@
 #include <vector>
 #include "Obstacle.h"
 template <typename T>
-class ObstacleSet : std::vector< Obstacle<T> > {
+class ObstacleSet   {
 
 private:
 

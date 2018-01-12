@@ -6,18 +6,12 @@
 #define ABSTRABIRD_IINTERSECTS_H
 
 #include "Obstacle.h"
-#include "Bird.h"
+
 
 template <typename T>
 class IIntersects {
 
 public:
-
-    virtual bool Intersects ( Obstacle<T>& obstacle , Bird<T>& bird) = 0;
-
-    virtual bool hitsFloor( Bird<T>& bird ) = 0;
-
-    virtual bool hitsCeil( Bird<T>& bird ) = 0;
 
 
 
