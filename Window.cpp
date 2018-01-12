@@ -24,11 +24,7 @@ Window::~Window() {
 
     SDL_DestroyWindow(this->sdl_window);
 
-}
-
-
-
-
+};
 
 
 

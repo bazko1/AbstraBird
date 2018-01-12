@@ -10,57 +10,26 @@
 #include "IUpdate.h"
 #include "IRenderable.h"
 
-#include <stdlib.h>
-#include <time.h>
-#include "IResetable.h"
+class Obstacle : public IUpdate, public IRenderable {
 
-class Obstacle : public IUpdate, public IRenderable , public IInitable, public IResetable {
-
-    SquareMovingObject* top;
-    SquareMovingObject* bot;
-
-    bool visited = false;
+    SquareMovingObject &top;
+    SquareMovingObject &bot;
 
     int winWidth;
-
     int winHeight;
 
-    int ( *gen )() = [](){ srand( time(NULL) ); return rand();  };
-
-
-
 public:
+    SquareMovingObject &getTop() const;
 
-    int getX(); // same in both pipes
-
-    int getTopH();
-
-    int getBotH();
-
-    int getW(); // same in both pipes
-
-    bool isVisited() const;
-
-    void setVisited(bool visited);
-
-    const SDL_Rect& getTopRect() const;
-
-    const SDL_Rect& getBotRect() const;
-
+    SquareMovingObject &getBot() const;
 
     void render(SDL_Renderer *renderer) override;
 
-
     void update(const double d) override;
 
+    Obstacle(int WinWidth, int WinHeight, SquareMovingObject &top, SquareMovingObject &bot);
 
-    Obstacle( SquareMovingObject* , SquareMovingObject* , int , int);
 
-    void Init(SDL_Renderer *renderer) override;
-
-    void reset();
-
-    ~Obstacle();
 };
 
 

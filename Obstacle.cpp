@@ -2,91 +2,66 @@
 // Created by bazyli on 1/12/18.
 //
 
-
 #include "Obstacle.h"
 
 
+Obstacle::Obstacle(int WinWidth, int WinHeight, SquareMovingObject& Top, SquareMovingObject& Bot) : top( Top ) , bot( Bot ) , winWidth(WinWidth) , winHeight(WinHeight) {
 
+    // Poczatkowe ustawienie x
+    top.setRectX( WinWidth );
+    bot.setRectX( WinWidth );
+
+    // Wysokosc obiektow
+    top.setRectH(winHeight);
+    bot.setRectH(winHeight);
+
+    // Szeroosc obiektow
+    top.setRectW(winWidth);
+    bot.setRectW(winWidth);
+
+    // Poczatkowe Ustawienie gornego
+    top.setRectY ( WinHeight - top.getRect().h );
+
+    // Y - do metody Update - musi
+    top.setY ( WinHeight-top.getRect().h );
+
+    // X - do metody update
+    top.setX( WinWidth );
+    bot.setX( WinWidth );
+
+    // speed x // should be in arguments
+    top.setXSpeed(-0.4);
+    bot.setXSpeed(-0.4);
+
+    // y speed =  0
+
+
+}
 
 
 void Obstacle::render(SDL_Renderer *renderer) {
-    top->render(renderer);
-    bot->render(renderer);
+    top.render(renderer);
+    bot.render(renderer);
 
 }
 
 void Obstacle::update(const double d) {
 
-    top->update(d);
-    bot->update(d);
+    top.Update(d);
+    bot.Update(d);
 
-    if ( top->getX() + top->getRect().w < 0) {
+    if ( top.getX() + top.getRect().h < 0)
+        top.setX ( winWidth  );
 
-        top->setX(winWidth);
-        top->setRectH( winHeight/2  -80 - gen()%60  );
-    }
-
-
-    if ( bot->getX() + bot->getRect().w < 0) {
-
-        bot->setX(winWidth);
-
-        int randY = winHeight/2 + 50 +gen()%50;
-        bot->setY( randY );
-        bot->setRectH( randY );
-
-        visited = false; // for counting points
-
-    }
-
-
+    if ( bot.getX() + bot.getRect().h < 0)
+        bot.setX ( winWidth  );
 
 }
 
-
-
-Obstacle::Obstacle(SquareMovingObject *Top, SquareMovingObject *Bot , int WinWidth , int winHeight )
-: top(  Top  ) , bot( Bot ) , winWidth(WinWidth) , winHeight(winHeight) {}
-
-bool Obstacle::isVisited() const {
-    return visited;
+SquareMovingObject &Obstacle::getTop() const {
+    return top;
 }
 
-void Obstacle::setVisited(bool visited) {
-    Obstacle::visited = visited;
-}
-
-const SDL_Rect &Obstacle::getTopRect() const {
-    return top->getRect();
-}
-
-const SDL_Rect &Obstacle::getBotRect() const {
-    return bot->getRect();
-}
-
-int Obstacle::getX() {
-    return top->getRectX();
-
-}
-
-int Obstacle::getW() {
-    return top->getRectW();
-}
-
-void Obstacle::Init(SDL_Renderer *renderer) {
-
-    top->Init(renderer);
-    bot->Init(renderer);
-
-}
-
-void Obstacle::reset() {
-
-    this->top->reset();
-    this->bot->reset();
-    this->visited = false;
-}
-Obstacle::~Obstacle() {
-    delete top;
-    delete bot;
+SquareMovingObject &Obstacle::getBot() const {
+    return bot;
 }

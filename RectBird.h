@@ -6,29 +6,26 @@
 #define ABSTRABIRD_RECTBIRD_H
 
 
+#include "SquareMovingObject.h"
 #include "Bird.h"
 
-class RectFillBird :  public Bird {
+class RectFillBird : public Bird {
+
+private:
 
 
 public:
+    void update(const double d) override {
 
+       // Bird::update(d);
+
+    }
 
     RectFillBird( int x , int y , int h , int w, double xSpd , double ySpd)   :
             Bird( x ,y , h , w , xSpd , ySpd) {}
 
 
-
-    RectFillBird(int windowH , int size ) : RectFillBird ( 20 , windowH/2 , size , size , 0.0 , 0.0 ) {}
-
-    void Init(SDL_Renderer *renderer) override {}
-
-    void update(const double d) override {
-
-        Bird::Update( d );
-    }
-
-
+    RectFillBird() : RectFillBird ( 0 , 0 , 40 , 40 , 0 , 0.0 ) {}
 
 
     void render(SDL_Renderer* renderer) override {
@@ -39,12 +36,7 @@ public:
     };
 
 
-
 };
-
-
-
-
 
 class RectBird : public Bird {
 
@@ -52,6 +44,8 @@ public:
 
     RectBird( int x , int y , int h , int w, int xSpd , int ySpd)   :
             Bird( x ,y , h , w,xSpd , ySpd) {}
+
+private:
 
     void render(SDL_Renderer* renderer) override {
 

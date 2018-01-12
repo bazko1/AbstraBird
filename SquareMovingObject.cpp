@@ -3,18 +3,21 @@
 //
 
 
+
+
+
 #include "SquareMovingObject.h"
 
 
 SquareMovingObject::SquareMovingObject(int x, int y, int h, int w, double xSpd, double ySpd) :
-        xSpeed(xSpd) , ySpeed(ySpd) , drawXBeginPos(x)
+        xSpeed(xSpd),ySpeed(ySpd)
 {
 
 
 
-    this->x = static_cast< double > (x);
+    this->x = static_cast<double > (x);
 
-    this->y = static_cast< double > (y);
+    this->y = static_cast<double > (y);
 
     rect.x = x;
     rect.y = y;
@@ -22,6 +25,11 @@ SquareMovingObject::SquareMovingObject(int x, int y, int h, int w, double xSpd, 
     rect.w = w;
 
 }
+
+
+//bool SquareMovingObject::Intersects(const SquareMovingObject& o2) const {
+//    return SDL_HasIntersection( &this->rect, &o2.rect );
+//}
 
 
 
@@ -65,38 +73,21 @@ void SquareMovingObject::setYSpeed(double ySpd) {
 
 }
 
+void SquareMovingObject::Update(const double deltaTime) {
 
 
-SquareMovingObject::SquareMovingObject(const SquareMovingObject & cpy) : SquareMovingObject( cpy.getRectX() , cpy.getRectY() , cpy.getRectH() , cpy.getRectW() , cpy.getXSpeed() , cpy.getYSpeed() ) {}
-
-
-
-void SquareMovingObject::update(const double deltaTime) {
-
-    double c = 100; //was 300 //Game::speedConst;
+    double c = 300; //Game::speedConst;
 
     y += ySpeed * deltaTime * c;
     x += xSpeed * deltaTime * c;
 
-
     rect.x = x;
+
 
     rect.y = y;
 
 
-}
 
-void SquareMovingObject::reset() {
-
-    setX(drawXBeginPos);
-    this->setRectX(drawXBeginPos);
-}
-
-void SquareMovingObject::Init(SDL_Renderer *renderer) {
-
-}
-
-void SquareMovingObject::render(SDL_Renderer *renderer) {
 
 }
 

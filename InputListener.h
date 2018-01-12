@@ -5,22 +5,15 @@
 #ifndef ABSTRABIRD_INPUTLISTENER_H
 #define ABSTRABIRD_INPUTLISTENER_H
 
-#include "IResetable.h"
-class InputListener: public IResetable {
+
+class InputListener {
 
 private:
-
-
-    bool pause = false;
-
-    bool gameFinished = false;
-
-    bool gameStarted = false;
 
     bool jumped= false;
 
 public:
-    bool JumpButtonClicked() const;
+    bool hasJumped() const;
 
     bool isPause() const;
 
@@ -28,11 +21,17 @@ public:
 
     bool isGameStarted() const;
 
+private:
+
+    bool pause= false;
+
+    bool gameFinished= false;
+
+    bool gameStarted = false;
+
+public:
     void checkInput();
 
-    void setJumped(bool jumped);
-
-    void reset();
 
 };
 

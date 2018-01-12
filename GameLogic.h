@@ -12,26 +12,21 @@
 class GameLogic {
 
 
-int prevBegin = 0;
-
-    int wH;
-
-    int wW;
-
-    int ( *gen)() = [](){ srand( time(NULL) ); return rand();  };
-
-
+    Bird& bird;
+    std::vector<Obstacle>& obstacles;
 
 
 public:
 
+    GameLogic ( Bird&b ,std::vector<Obstacle>& obs  ) : bird(b) , obstacles(obs){
+
+    }
+
+    void update();
+
+private:
 
 
-    GameLogic(int H , int W ): wH(W) ,wW(H)  {};
-
-    bool score (const Bird& b , Obstacle& obstacle ) const ;
-
-    void randomizeDistSize( Obstacle& );
 
 };
 
