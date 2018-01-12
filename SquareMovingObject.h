@@ -51,6 +51,12 @@ public:
     virtual bool Intersects(const SquareMovingObject& o2 ) const ;
 
     double getX() const;
+
+    void SetRectX(int );
+    void SetRectY(int );
+    void SetRectH(int );
+    void SetRectW(int );
+
 };
 
 

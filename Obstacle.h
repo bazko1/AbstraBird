@@ -19,19 +19,21 @@ class Obstacle {
 
 public:
 
-    Obstacle(){
+    Obstacle( int WinWidth , int WinHeight ) : top(WinWidth) , bot(WinWidth) {
 
 
-        top.setY ( Window::Height-top.getRect().h );
+        top.setY ( WinHeight-top.getRect().h );
 
-        top.setX( Window::Width);
-        bot.setX( Window::Width);
+        top.setX( WinWidth );
+        bot.setX( WinWidth );
 
         top.setXSpeed(-0.1);
         bot.setXSpeed(-0.1);
 
 
     }
+
+
 
     void Update( const double deltaTime )  {
 

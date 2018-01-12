@@ -14,21 +14,17 @@ class Window {
 private:
 
 
-      SDL_Window* sdl_window = NULL;
-      SDL_Renderer *renderer = NULL;
+
+        SDL_Window* sdl_window = NULL;
 
 public:
 
-    static const int Height = 2*384;
+    SDL_Window *getSdl_window() const;
+    const int Height = 2*384;
 
-    static const int Width = 2*288;
-
-
-
+    const int Width = 2*288;
 
     Window ();
-
-    void Update();
 
 
 

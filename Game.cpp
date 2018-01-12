@@ -60,3 +60,11 @@ void Game::Render() {
 
 }
 
+Game::Game() {
+
+    this->renderer = SDL_CreateRenderer( this->window.getSdl_window() , -1,SDL_RENDERER_ACCELERATED);
+    SDL_RenderPresent(renderer);
+
+    SDL_RenderClear(renderer);
+}
+

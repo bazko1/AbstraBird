@@ -93,3 +93,21 @@ void SquareMovingObject::setYSpeed(double ySpd) {
 
 }
 
+void SquareMovingObject::SetRectX(int x ) {
+
+    this->rect.x = x;
+}
+
+void SquareMovingObject::SetRectY(int y) {
+    this->rect.y=y;
+}
+
+void SquareMovingObject::SetRectH(int h) {
+
+        this->rect.h = h;
+}
+
+void SquareMovingObject::SetRectW(int w) {
+    this->rect.w = w;
+}
+

@@ -10,7 +10,7 @@
 class SquareFilledPipe : public SquareMovingObject {
 
 public:
-    SquareFilledPipe() : SquareMovingObject(Window::Width,0,40,20,0,0) {
+    SquareFilledPipe(int WindowWidth) : SquareMovingObject(WindowWidth,0,40,20,0,0) {
 
     }
 

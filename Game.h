@@ -16,7 +16,7 @@ class Game {
 
 private:
 
-    Window& window;
+    Window window;
 
 //    GameLogic<T>& gameLogic;
 //
@@ -26,11 +26,13 @@ private:
 //
 //    InputListener& listener;
 
+    SDL_Renderer* renderer = NULL;
+
+
+
     bool isPaused = false;
 
     bool finished = false;
-
-    std::vector <IDrawable> toDraw;
 
 public:
 
@@ -38,6 +40,8 @@ public:
 
 
     //Game ( Window& w ,  Bird<T>& b , GameLogic<T>& logic , ObstacleSet<T>& obstacleSet , InputListener& listener );
+
+    Game();
 
     void Start();
 
