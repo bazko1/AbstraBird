@@ -4,6 +4,7 @@
 
 
 #include <SDL_events.h>
+#include <iostream>
 #include "Game.h"
 #include "DeltaTimer.h"
 
@@ -19,19 +20,28 @@ void Game::mainLoop() {
     while (true) {
 
 
-        this->listener.checkInput();
+            this->listener.checkInput();
 
-        if (listener.isGameFinished())
-            break;
+            //std::cout<< listener.isGameStarted() <<listener.hasJumped();
 
-        if (!listener.isPause()) {
+            if ( listener.isGameFinished() )
+                break;
 
-            if (listener.hasJumped())
-                bird.jump();
+            if ( !listener.isPause()  && listener.isGameStarted() ) {
 
-            this->update( timer.GetDelta() );
+                //TODO: Timer should stop counting time atm.
 
-        }
+                if ( listener.JumpButtonClicked() )
+                {
+                    bird.jump();
+                    listener.setJumped( false );
+                }
+
+               // std::cout<<"upd";
+                this->update( timer.GetDelta() );
+
+            } else timer.GetDelta();
+
         render();
 
 

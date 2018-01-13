@@ -16,9 +16,10 @@ class Obstacle : public IUpdate, public IRenderable {
     SquareMovingObject &bot;
 
     int winWidth;
-    int winHeight;
+//    int winHeight;
 
 public:
+
     SquareMovingObject &getTop() const;
 
     SquareMovingObject &getBot() const;
@@ -29,6 +30,7 @@ public:
 
     Obstacle(int WinWidth, int WinHeight, SquareMovingObject &top, SquareMovingObject &bot);
 
+    Obstacle( SquareMovingObject& , SquareMovingObject& , int );
 
 };
 

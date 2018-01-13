@@ -10,10 +10,17 @@ class InputListener {
 
 private:
 
+
+    bool pause = false;
+
+    bool gameFinished = false;
+
+    bool gameStarted = false;
+
     bool jumped= false;
 
 public:
-    bool hasJumped() const;
+    bool JumpButtonClicked() const;
 
     bool isPause() const;
 
@@ -21,16 +28,9 @@ public:
 
     bool isGameStarted() const;
 
-private:
-
-    bool pause= false;
-
-    bool gameFinished= false;
-
-    bool gameStarted = false;
-
-public:
     void checkInput();
+
+    void setJumped(bool jumped);
 
 
 };

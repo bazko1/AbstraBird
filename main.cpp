@@ -248,15 +248,22 @@ int main() {
 
     //Obstacle p;
     //SquareMovingObject*obj;
-    SquareFilledPipe pipe;
-    SquareFilledPipe pipe2;
+    SquareFilledTopPipe pipe(height,width,40,240, -0.6 );
+    SquareFilledBotPipe pipe2 (height,width,40,140 , -0.6 );
 
-    Obstacle o (width,height, pipe , pipe2 );
 
-    std::vector <Obstacle> vector = {o};
+    SquareFilledTopPipe pipe3(height,width + 500,40,440,-0.6 );
+    SquareFilledBotPipe pipe4 (height,width + 500,40,240 , -0.6 );
 
-    RectFillBird bird;
 
+    Obstacle o ( pipe , pipe2 , width + 50 );
+
+    Obstacle o2 ( pipe3,pipe4,width+500);
+    std::vector <Obstacle> vector = { o , o2 };
+
+    RectFillBird bird(height,30);
+
+    bird.setX(20);
     Game game(bird,vector);
 
 
