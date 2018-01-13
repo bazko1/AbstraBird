@@ -12,6 +12,7 @@
 #include "InputListener.h"
 #include "Obstacle.h"
 
+
 class Game : public IUpdate {
 
 private:
@@ -22,13 +23,13 @@ private:
 
     std::vector<Obstacle>& obstacles;
 
+    GameLogic gameLogic;
+
     Bird& bird;
 
     SDL_Renderer* renderer = NULL;
 
-    int points;
-
-    bool isPaused = false;
+    int points = 0;
 
     bool finished = false;
 

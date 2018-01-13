@@ -11,22 +11,17 @@
 
 class GameLogic {
 
-
-    Bird& bird;
-    std::vector<Obstacle>& obstacles;
+int wH;
+int wW;
 
 
 public:
 
-    GameLogic ( Bird&b ,std::vector<Obstacle>& obs  ) : bird(b) , obstacles(obs){
-
-    }
-
-    void update();
-
-private:
 
 
+    GameLogic(int H , int W ): wH(W) ,wW(H)  {};
+
+    bool score ( Bird& b , Obstacle& obstacle );
 
 };
 

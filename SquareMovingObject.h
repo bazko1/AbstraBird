@@ -17,9 +17,6 @@ private:
 
     double y; // ^
 
-    SDL_Rect rect;
-
-
     double xSpeed; //
 
     double ySpeed;//
