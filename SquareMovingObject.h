@@ -27,7 +27,9 @@ private:
 public:
 
     SquareMovingObject(){}
+
     SquareMovingObject( int x , int y , int h , int w, double xSpd , double ySpd);
+
     void setX(double x);
 
     double getY() const;

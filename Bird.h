@@ -12,12 +12,13 @@
 
 class Bird : public SquareMovingObject , public IIntersects  {
 
-    double gravity;
+    double gravity=0.1;
 
 public:
+
     Bird(int x , int y , int h , int w, double xSpd , double ySpd );
 
-    void Update(const double);
+    void Update(const double) override ;
 
     void jump();
 
