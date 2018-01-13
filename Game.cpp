@@ -16,20 +16,23 @@ void Game::Start() {
 
 void Game::mainLoop() {
 
+
     Timer timer;
-    while (true) {
+
+    while (true)
+    {
 
 
             this->listener.checkInput();
 
-            //std::cout<< listener.isGameStarted() <<listener.hasJumped();
 
-            if ( listener.isGameFinished() )
+            if ( listener.isGameFinished()   )
                 break;
 
-            if ( !listener.isPause()  && listener.isGameStarted() ) {
+            if ( !listener.isPause()  && listener.isGameStarted() && !finished )
+            {
 
-                //TODO: Timer should stop counting time atm.
+
 
                 if ( listener.JumpButtonClicked() )
                 {
@@ -37,16 +40,20 @@ void Game::mainLoop() {
                     listener.setJumped( false );
                 }
 
-               // std::cout<<"upd";
-                this->update( timer.GetDelta() );
+               this->update( timer.GetDelta() );
 
-            } else timer.GetDelta();
 
-        render();
+            }
+            else
+                timer.GetDelta();
+
+
+            render();
 
 
     }
 
+        std::cout<<points;
 
 
 }
@@ -55,8 +62,17 @@ void Game::update(const double d) {
 
     this->bird.update(d);
 
-    for (Obstacle &o : obstacles)
+    for (Obstacle &o : obstacles) {
         o.update(d);
+
+        if ( bird.intersects ( o ) )
+            this-> finished = true;
+
+        if ( gameLogic.score( bird , o ) )
+            this->points++;
+    }
+
+
 }
 
 
@@ -74,7 +90,7 @@ void Game::render() {
 
 }
 
-Game::Game(Bird &b , std::vector<Obstacle>& obs ) : bird(b) , obstacles(obs) {
+Game::Game(Bird &b , std::vector<Obstacle>& obs ) : bird(b) , obstacles(obs) , gameLogic( window.Height , window.Width ) {
 
     this->renderer = SDL_CreateRenderer(this->window.getSdl_window(), -1, SDL_RENDERER_ACCELERATED);
 

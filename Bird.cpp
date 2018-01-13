@@ -28,5 +28,8 @@ void Bird::jump() {
 }
 
 Bird::Bird(int x, int y, int h, int w, double xSpd, double ySpd) :
-        SquareMovingObject(x, y, h, w, xSpd, ySpd) {};
+        SquareMovingObject(x, y, h, w, xSpd, ySpd) {}
+
+
+
 

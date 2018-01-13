@@ -10,12 +10,13 @@
 
 class SquareObject {
 
-private:
+protected:
 
     SDL_Rect rect;
 
 
 public:
+
     SquareObject(){};
     void setRectX(int x) {
         rect.x=x;
@@ -36,6 +37,24 @@ public:
 
     }
 
+    int getRectX() {
+        return  rect.x;
+    }
+
+    int getRectY() {
+        return  rect.y ;
+
+    }
+
+    int getRectH() {
+        return rect.h ;
+
+    }
+
+    int getRectW() {
+        return rect.w;
+
+    }
 
 
 

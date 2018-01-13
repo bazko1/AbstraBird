@@ -54,10 +54,16 @@ void Obstacle::update(const double d) {
     bot.Update(d);
 
     if ( top.getX() + top.getRect().w < 0)
-        top.setX ( winWidth  );
+        top.setX(winWidth);
 
-    if ( bot.getX() + bot.getRect().w < 0)
-        bot.setX ( winWidth  );
+
+    if ( bot.getX() + bot.getRect().w < 0) {
+        bot.setX(winWidth);
+        visited = false;
+
+    }
+
+
 
 }
 
@@ -71,3 +77,11 @@ SquareMovingObject &Obstacle::getBot() const {
 
 Obstacle::Obstacle(SquareMovingObject &Top, SquareMovingObject &Bot , int WinWidth )
 : top(Top) , bot(Bot) , winWidth(WinWidth) {}
+
+bool Obstacle::isVisited() const {
+    return visited;
+}
+
+void Obstacle::setVisited(bool visited) {
+    Obstacle::visited = visited;
+}

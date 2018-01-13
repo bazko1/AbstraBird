@@ -24,6 +24,7 @@ public:
 
     bool intersects(const Obstacle &obstacle) override;
 
+
 };
 
 #endif //ABSTRABIRD_BIRD_H

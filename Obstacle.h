@@ -15,7 +15,13 @@ class Obstacle : public IUpdate, public IRenderable {
     SquareMovingObject &top;
     SquareMovingObject &bot;
 
+    bool visited = false;
+
     int winWidth;
+public:
+    bool isVisited() const;
+
+    void setVisited(bool visited);
 //    int winHeight;
 
 public:
