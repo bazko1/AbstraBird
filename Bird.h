@@ -18,7 +18,9 @@ public:
 
     Bird(int x , int y , int h , int w, double xSpd , double ySpd );
 
-    void Update(const double) override ;
+    void Update(const double);
+
+    double getGravity() const;
 
     void jump();
 

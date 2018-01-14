@@ -9,13 +9,14 @@
 #include "Pipes.h"
 #include "RectBird.h"
 #include "Game.h"
+#include "Windows.h"
+#include "AbstraBird.h"
 
-//#include "RectBird.h"
-//#include "Pipes.h"
 
-static int width = 2*288;
-static int height = 2*384;
+static const int width = 2*288;
+static const int height = 2*384;
 
+int piece = 72; //1/8 width
 
 struct Opak
 {
@@ -248,23 +249,34 @@ int main() {
 
     //Obstacle p;
     //SquareMovingObject*obj;
-    SquareFilledTopPipe pipe(height,width,40,240, -0.6 );
-    SquareFilledBotPipe pipe2 (height,width,40,140 , -0.6 );
+    FlappyTopPipe pipe( height , width , piece , 240 , -0.6 );
+    FlappyBotPipe pipe2 ( height , width , piece , 140 , -0.6 );
 
 
-    SquareFilledTopPipe pipe3(height,width + 500,40,440,-0.6 );
-    SquareFilledBotPipe pipe4 (height,width + 500,40,240 , -0.6 );
+    FlappyTopPipe pipe3(height , width + 5*piece ,144/2,360,-0.6 );
+    FlappyBotPipe pipe4 (height , width + 5*piece ,144/2 ,240 , -0.6 );
 
 
-    Obstacle o ( pipe , pipe2 , width + 50 );
+//    SquareFilledTopPipe pipe5(height , width + 940 ,40,360,-0.6 );
+  //  SquareFilledBotPipe pipe6 (height , width + 940,40,240 , -0.6 );
 
-    Obstacle o2 ( pipe3,pipe4,width+500);
-    std::vector <Obstacle> vector = { o , o2 };
 
-    RectFillBird bird(height,30);
+    Obstacle o ( pipe , pipe2 , width + piece  ,height);
 
-    bird.setX(20);
-    Game game(bird,vector);
+    Obstacle o2 ( pipe3,pipe4 , width + piece, height);
+
+//    Obstacle o3 ( pipe5 , pipe6 ,width,height);
+
+    std::vector <Obstacle> vector = { o , o2  };
+
+    AbstraBird bird( height , piece-piece/4 );
+
+    bird.setX(200);
+    bird.setRectX(200);
+
+    FlappyWindow w;
+    Game game(bird,vector,w);
+
 
 
     return 0;

@@ -37,21 +37,21 @@ public:
 
     }
 
-    int getRectX() {
+    int getRectX() const {
         return  rect.x;
     }
 
-    int getRectY() {
+    int getRectY() const {
         return  rect.y ;
 
     }
 
-    int getRectH() {
+    int getRectH() const {
         return rect.h ;
 
     }
 
-    int getRectW() {
+    int getRectW() const {
         return rect.w;
 
     }

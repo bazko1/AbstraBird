@@ -3,9 +3,6 @@
 //
 
 
-
-
-
 #include "SquareMovingObject.h"
 
 
@@ -73,8 +70,19 @@ void SquareMovingObject::setYSpeed(double ySpd) {
 
 }
 
-void SquareMovingObject::Update(const double deltaTime) {
 
+
+SquareMovingObject::SquareMovingObject(const SquareMovingObject & cpy) : SquareMovingObject( cpy.getX() , cpy.getY() , cpy.getRectH() , cpy.getRectW() , cpy.getXSpeed() , cpy.getYSpeed() ) {}
+
+//void SquareMovingObject::render(SDL_Renderer *renderer) {
+//
+//    SDL_SetRenderDrawColor(renderer,0,0,0,0);
+//    SDL_RenderFillRect( renderer , &this->getRect() );
+//
+//
+//}
+
+void SquareMovingObject::update(const double deltaTime) {
 
     double c = 300; //Game::speedConst;
 
@@ -85,8 +93,6 @@ void SquareMovingObject::Update(const double deltaTime) {
 
 
     rect.y = y;
-
-
 
 
 }

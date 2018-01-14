@@ -13,12 +13,13 @@ void Bird::Update(const double d) {
     this->setYSpeed( spd );
 
     // normal update
-    SquareMovingObject::Update( d );
+    SquareMovingObject::update( d );
+
 }
 
 bool Bird::intersects(const Obstacle &obstacle) {
-    return SDL_HasIntersection( &this->getRect(), &obstacle.getTop().getRect() )
-         ||   SDL_HasIntersection( &this->getRect(), &obstacle.getBot().getRect() );
+    return SDL_HasIntersection( &this->getRect(), &obstacle.getTopRect() )
+         ||   SDL_HasIntersection( &this->getRect(), &obstacle.getBotRect() );
 }
 
 void Bird::jump() {
@@ -29,6 +30,10 @@ void Bird::jump() {
 
 Bird::Bird(int x, int y, int h, int w, double xSpd, double ySpd) :
         SquareMovingObject(x, y, h, w, xSpd, ySpd) {}
+
+double Bird::getGravity() const {
+    return gravity;
+}
 
 
 

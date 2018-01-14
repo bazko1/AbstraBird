@@ -16,9 +16,7 @@ class AbstraBird : public RectFillBird {
 
     SDL_Texture* texture = NULL;
 
-    int animCounter = 0;
 
-    int currAnim = 0;
 public:
 
 
@@ -28,10 +26,14 @@ public:
 
     void Init (SDL_Renderer * renderer) {
 
-        IInitable::Init( renderer
-                ,"//home/rafal/AbstraBird/Pictures/bird.png"
-                ,bitmapSurface
-                ,texture );
+        bitmapSurface = IMG_Load("//home/bazyli/CLionProjects/AbstraBird/Pictures/bird_sing.png");
+
+        texture = SDL_CreateTextureFromSurface( renderer , bitmapSurface  );
+
+        SDL_FreeSurface( bitmapSurface );
+
+
+
 
     }
 
@@ -40,23 +42,12 @@ public:
     void render(SDL_Renderer *renderer) override {
 
 
-        SDL_Rect srcRect = { 36* currAnim,0,36,26 };
-
-
-        if (this->getYSpeed() < -0.1)
-            SDL_RenderCopyEx(renderer, texture, &srcRect, &this->getRect(), 300, NULL, SDL_FLIP_NONE);
+        if (this->getYSpeed() < 0)
+            SDL_RenderCopyEx(renderer, texture, 0, &this->getRect(), 300, NULL, SDL_FLIP_NONE);
         else if (this->getYSpeed() > 0.8  )
-            SDL_RenderCopyEx(renderer, texture, &srcRect, &this->getRect(), 30, NULL, SDL_FLIP_NONE);
+            SDL_RenderCopyEx(renderer, texture, 0, &this->getRect(), 30, NULL, SDL_FLIP_NONE);
         else
-            SDL_RenderCopyEx(renderer, texture, &srcRect, &this->getRect(), 0, NULL, SDL_FLIP_NONE);
-
-        if ( animCounter++==80 ) {
-
-            currAnim++;
-            currAnim %= 3;
-            animCounter=0;
-        }
-
+            SDL_RenderCopyEx(renderer, texture, 0, &this->getRect(), 0, NULL, SDL_FLIP_NONE);
     }
 
 

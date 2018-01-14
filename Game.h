@@ -17,11 +17,13 @@ class Game : public IUpdate {
 
 private:
 
-    Window window;
+    Window& window;
 
     InputListener listener;
 
-    std::vector<Obstacle>& obstacles;
+    std::list<Obstacle> obstacles;
+
+    const std::vector<Obstacle> orginal;
 
     GameLogic gameLogic;
 
@@ -33,15 +35,16 @@ private:
 
     bool finished = false;
 
+    int count = 0;
 
 public:
 
-    constexpr static const double speedConst = 500.;
+    //constexpr static const double speedConst = 500.;
 
 
+    bool score( Obstacle& obstacle );
 
-
-    Game(Bird& , std::vector<Obstacle>& obs );
+    Game(Bird& , std::vector<Obstacle>& obs , Window& );
 
     void Start();
 
