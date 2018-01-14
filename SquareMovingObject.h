@@ -9,8 +9,9 @@
 #include "SquareObject.h"
 #include "IUpdate.h"
 #include "IRenderable.h"
+#include "IInitable.h"
 
-class SquareMovingObject : public SquareObject , public IUpdate , public IRenderable  {
+class SquareMovingObject : public SquareObject , public IUpdate , public IRenderable , public IInitable  {
 private:
 
     double x; // For accuracy
@@ -25,13 +26,15 @@ public:
 
     SquareMovingObject(){}
 
+    SquareMovingObject (const SquareMovingObject& );
+
     SquareMovingObject( int x , int y , int h , int w, double xSpd , double ySpd);
 
     void setX(double x);
 
     double getY() const;
 
-    virtual void Update(const double deltaTime);
+    void update(const double ) override;
 
     void setY(double y);
 
@@ -45,10 +48,9 @@ public:
 
     void setYSpeed(double ySpeed);
 
-    //virtual bool Intersects(const SquareMovingObject& o2 ) const ;
+    //virtual void render(SDL_Renderer *renderer) ;
 
     double getX() const;
-
 
 
 };

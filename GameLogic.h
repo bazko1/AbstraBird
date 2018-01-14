@@ -11,8 +11,16 @@
 
 class GameLogic {
 
-int wH;
-int wW;
+
+int prevBegin = 0;
+
+    int wH;
+
+    int wW;
+
+    int ( *gen)() = [](){ srand( time(NULL) ); return rand();  };
+
+
 
 
 public:
@@ -21,7 +29,9 @@ public:
 
     GameLogic(int H , int W ): wH(W) ,wW(H)  {};
 
-    bool score ( Bird& b , Obstacle& obstacle );
+    bool score (const Bird& b , Obstacle& obstacle ) const ;
+
+    void randomizeDistSize( Obstacle& );
 
 };
 

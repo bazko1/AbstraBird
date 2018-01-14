@@ -6,40 +6,7 @@
 #include "Obstacle.h"
 
 
-Obstacle::Obstacle(int WinWidth, int WinHeight, SquareMovingObject& Top, SquareMovingObject& Bot) :
-        top( Top ) , bot( Bot ) , winWidth(WinWidth) {
 
-    // Poczatkowe ustawienie x
-    top.setRectX( WinWidth );
-    bot.setRectX( WinWidth );
-
-    // Wysokosc obiektow
-    top.setRectH(40);
-    bot.setRectH(40);
-
-    // Szeroosc obiektow
-    top.setRectW(40);
-    bot.setRectW(40);
-
-    // Poczatkowe Ustawienie gornego
-    top.setRectY ( WinHeight - top.getRect().h );
-
-    // Y - do metody Update - musi
-    top.setY ( WinHeight-top.getRect().h );
-
-
-    // X - do metody update
-    top.setX( WinWidth );
-    bot.setX( WinWidth );
-
-    // speed x // should be in arguments
-    top.setXSpeed(-0.1);
-    bot.setXSpeed(-0.1);
-
-    // y speed =  0
-
-
-}
 
 
 void Obstacle::render(SDL_Renderer *renderer) {
@@ -50,15 +17,24 @@ void Obstacle::render(SDL_Renderer *renderer) {
 
 void Obstacle::update(const double d) {
 
-    top.Update(d);
-    bot.Update(d);
+    top.update(d);
+    bot.update(d);
 
-    if ( top.getX() + top.getRect().w < 0)
+    if ( top.getX() + top.getRect().w < 0) {
+
         top.setX(winWidth);
+        top.setRectH( winHeight/2  -80 - gen()%60  );
+    }
 
 
     if ( bot.getX() + bot.getRect().w < 0) {
+
         bot.setX(winWidth);
+
+        int randY = winHeight/2 + 50 +gen()%50;
+        bot.setY( randY );
+        bot.setRectH( randY );
+
         visited = false;
 
     }
@@ -67,16 +43,10 @@ void Obstacle::update(const double d) {
 
 }
 
-SquareMovingObject &Obstacle::getTop() const {
-    return top;
-}
 
-SquareMovingObject &Obstacle::getBot() const {
-    return bot;
-}
 
-Obstacle::Obstacle(SquareMovingObject &Top, SquareMovingObject &Bot , int WinWidth )
-: top(Top) , bot(Bot) , winWidth(WinWidth) {}
+Obstacle::Obstacle(SquareMovingObject &Top, SquareMovingObject &Bot , int WinWidth , int winHeight )
+: top(  Top  ) , bot( Bot ) , winWidth(WinWidth) , winHeight(winHeight) {}
 
 bool Obstacle::isVisited() const {
     return visited;
@@ -85,3 +55,33 @@ bool Obstacle::isVisited() const {
 void Obstacle::setVisited(bool visited) {
     Obstacle::visited = visited;
 }
+
+const SDL_Rect &Obstacle::getTopRect() const {
+    return top.getRect();
+}
+
+const SDL_Rect &Obstacle::getBotRect() const {
+    return bot.getRect();
+}
+
+int Obstacle::getX() {
+    return top.getRectX();
+
+}
+
+int Obstacle::getW() {
+    return top.getRectW();
+}
+
+void Obstacle::Init(SDL_Renderer *renderer) {
+
+    top.Init(renderer);
+    bot.Init(renderer);
+
+}
+
+//Obstacle::Obstacle(SquareMovingObject *, SquareMovingObject *, int, int) : top( *new SquareMovingObject() ) {
+//
+//
+//
+//}

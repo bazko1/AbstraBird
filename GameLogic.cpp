@@ -5,10 +5,10 @@
 #include <iostream>
 #include "GameLogic.h"
 
-bool GameLogic::score(Bird &b, Obstacle &obstacle) {
+bool GameLogic::score(const Bird &b, Obstacle &obstacle) const {
 
 
-    int x = obstacle.getTop().getRectX() + obstacle.getTop().getRectW();
+    int x = obstacle.getX() + obstacle.getW(); // Obstacle.getX + obstacle.getW
 
     int y1 = 0;
 
@@ -23,4 +23,8 @@ bool GameLogic::score(Bird &b, Obstacle &obstacle) {
 
 
     return false;
+
 }
+
+
+

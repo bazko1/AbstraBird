@@ -9,24 +9,27 @@
 
 
 #include <vector>
+#include <queue>
 #include "Obstacle.h"
-
-template <typename G >
-class ObstacleSet    {
+#include <list>
 
 
 
-    std::vector <Obstacle> obstacles;
-private:
+class ObstacleSet  : public IUpdate   {
 
-  //  std::vector <Obstacle> obstacles;
+
+    const std::vector <Obstacle>& beginState;
+
+    std::list <Obstacle> obstacles;
+
+
+    int dist;
 
 public:
 
-    template < typename Generate >
-     void AddObstacle();
+    ObstacleSet(const std::vector <Obstacle>& obs);
 
-
+    void update(const double d) override;
 
 
 };
