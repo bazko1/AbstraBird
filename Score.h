@@ -12,9 +12,9 @@
 #include "IRenderable.h"
 #include "IUpdate.h"
 #include "IInitable.h"
-#include "iresetable.h"
+
 template <typename T>
-class Score : public IRenderable  , public IInitable, public IResetable{
+class Score : public IRenderable  , public IInitable{
 public:
 
 
@@ -44,15 +44,20 @@ public:
             srcRect = { nr * 28,0,28,46 };
 
 
-            dstRect = { 288-28+28*count , 384/4, 3*28/2 , 3*46/2   } ;
+            dstRect = {288+28*count , 384/4, 3*28/2 , 3*46/2   } ;
 
 
             SDL_RenderCopyEx( renderer, texture, &srcRect, &dstRect,  0, NULL, SDL_FLIP_NONE );
 
 
             count++;
+            // std::cout<<nr<<std::endl;
 
         }
+
+
+
+        //SDL_Rect srcRect = {0*28,0,28,46 };
 
 
 
@@ -60,11 +65,12 @@ public:
 
     void Init(SDL_Renderer *renderer) override {
 
+        bitmapSurface = IMG_Load("//home/bazyli/CLionProjects/AbstraBird/Pictures/SpriteFont.png");
 
-        IInitable::Init( renderer
-                ,"/home/rafal/AbstraBird/AbstraBird/Pictures/SpriteFont.png"
-                ,bitmapSurface
-                ,texture );
+        texture = SDL_CreateTextureFromSurface( renderer , bitmapSurface  );
+
+
+        SDL_FreeSurface( bitmapSurface );
 
 
 
@@ -103,14 +109,6 @@ public:
     }
 
 
-    Score(){ if( not std::is_integral<T>::value ) throw; }
-
-
-    void reset() {
-
-        score = 0;
-    }
-
 private:
 
     T score = 0;
@@ -122,8 +120,11 @@ private:
 
 
 
-
 };
+
+
+
+
 
 
 

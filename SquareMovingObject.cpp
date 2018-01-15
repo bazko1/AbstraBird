@@ -24,11 +24,6 @@ SquareMovingObject::SquareMovingObject(int x, int y, int h, int w, double xSpd, 
 }
 
 
-//bool SquareMovingObject::Intersects(const SquareMovingObject& o2) const {
-//    return SDL_HasIntersection( &this->rect, &o2.rect );
-//}
-
-
 
 double SquareMovingObject::getX() const {
     return x;
@@ -74,17 +69,11 @@ void SquareMovingObject::setYSpeed(double ySpd) {
 
 SquareMovingObject::SquareMovingObject(const SquareMovingObject & cpy) : SquareMovingObject( cpy.getX() , cpy.getY() , cpy.getRectH() , cpy.getRectW() , cpy.getXSpeed() , cpy.getYSpeed() ) {}
 
-//void SquareMovingObject::render(SDL_Renderer *renderer) {
-//
-//    SDL_SetRenderDrawColor(renderer,0,0,0,0);
-//    SDL_RenderFillRect( renderer , &this->getRect() );
-//
-//
-//}
+
 
 void SquareMovingObject::update(const double deltaTime) {
 
-    double c = 300; //Game::speedConst;
+    double c = 100; //was 300 //Game::speedConst;
 
     y += ySpeed * deltaTime * c;
     x += xSpeed * deltaTime * c;

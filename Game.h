@@ -11,6 +11,7 @@
 #include "ObstacleSet.h"
 #include "InputListener.h"
 #include "Obstacle.h"
+#include "Score.h"
 
 
 class Game : public IUpdate {
@@ -31,11 +32,9 @@ private:
 
     SDL_Renderer* renderer = NULL;
 
-    int points = 0;
-
     bool finished = false;
 
-    int count = 0;
+    Score<int> score1;
 
 public:
 
@@ -53,6 +52,10 @@ public:
     void update(const double d) override;
 
     void render() ;
+
+    void increaseGlobalSpeed(double speed );
+
+
 
     ~Game();
 };

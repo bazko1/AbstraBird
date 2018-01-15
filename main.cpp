@@ -249,12 +249,12 @@ int main() {
 
     //Obstacle p;
     //SquareMovingObject*obj;
-    FlappyTopPipe pipe( height , width , piece , 240 , -0.6 );
-    FlappyBotPipe pipe2 ( height , width , piece , 140 , -0.6 );
+    FlappyTopPipe pipe( height , width , piece , 240 , -1.6 );
+    FlappyBotPipe pipe2 ( height , width , piece , 140 , -1.6 );
 
 
-    FlappyTopPipe pipe3(height , width + 5*piece ,144/2,360,-0.6 );
-    FlappyBotPipe pipe4 (height , width + 5*piece ,144/2 ,240 , -0.6 );
+    FlappyTopPipe pipe3(height , width + 5*piece ,144/2,360,-1.6 );
+    FlappyBotPipe pipe4 (height , width + 5*piece ,144/2 ,240 , -1.6 );
 
 
 //    SquareFilledTopPipe pipe5(height , width + 940 ,40,360,-0.6 );
@@ -274,6 +274,7 @@ int main() {
     bird.setX(200);
     bird.setRectX(200);
 
+    bird.setYSpeed(0);
     FlappyWindow w;
     Game game(bird,vector,w);
 

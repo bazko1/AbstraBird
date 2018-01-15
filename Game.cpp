@@ -48,13 +48,12 @@ void Game::mainLoop() {
                 timer.GetDelta();
 
 
+
+
             render();
 
 
     }
-
-        std::cout<<points;
-
 
 }
 
@@ -67,11 +66,14 @@ void Game::update(const double d) {
         o.update(d);
 
 
-        if ( bird.intersects ( o ) )
-            this-> finished = true;
+        if ( bird.intersects ( o ) ) {
+
+            this->finished = true;
+
+        }
 
         if ( score( o ) )
-            this->points++;
+        this->score1.scorePlus();
 
     }
 
@@ -90,6 +92,8 @@ void Game::render() {
     for (Obstacle &o : obstacles)
         o.render(renderer);
 
+    score1.render(renderer);
+
     SDL_RenderPresent(renderer);
 
 
@@ -106,6 +110,8 @@ Game::Game(Bird &b , std::vector<Obstacle>& obs , Window& w ) : bird(b) , obstac
 
     for (Obstacle &o : obstacles)
         o.Init( renderer );
+
+      score1.Init(renderer);
 
         this->mainLoop();
 
@@ -140,6 +146,12 @@ bool Game::score(Obstacle &obstacle) {
     return false;
 
 
+
+}
+
+void Game::increaseGlobalSpeed(double speed) {
+
+    //bird.setYSpeed(  bird.getYSpeed() )
 
 }
 
