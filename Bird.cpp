@@ -24,7 +24,7 @@ bool Bird::intersects(const Obstacle &obstacle) {
 
 void Bird::jump() {
 
-    this->setYSpeed( -1 );
+    this->setYSpeed( -4 );
 
 }
 

@@ -12,7 +12,7 @@
 
 class Bird : public SquareMovingObject , public IIntersects  {
 
-    double gravity=0.1;
+    double gravity=0.2;
 
 public:
 
