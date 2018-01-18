@@ -29,6 +29,16 @@ void Game::mainLoop() {
             if ( listener.isGameFinished()   )
                 break;
 
+
+            if ( finished ) {
+
+                Restart();
+
+                finished = false;
+                SDL_Delay(1000);
+            }
+
+
             if ( !listener.isPause()  && listener.isGameStarted() && !finished )
             {
 
@@ -115,6 +125,7 @@ Game::Game(Bird &b , std::vector<Obstacle>& obs , Window& w ) : bird(b) , obstac
 
         this->mainLoop();
 
+
 }
 
 
@@ -152,6 +163,19 @@ bool Game::score(Obstacle &obstacle) {
 void Game::increaseGlobalSpeed(double speed) {
 
     //bird.setYSpeed(  bird.getYSpeed() )
+
+}
+
+void Game::Restart() {
+
+    bird.reset( window.Width ) ;
+
+    for ( Obstacle& o : obstacles   )
+        o.reset();
+
+    score1.reset();
+
+    this->listener.reset();
 
 }
 

@@ -32,6 +32,7 @@ public:
 
     void setJumped(bool jumped);
 
+    void reset();
 
 };
 

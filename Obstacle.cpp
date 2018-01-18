@@ -80,8 +80,10 @@ void Obstacle::Init(SDL_Renderer *renderer) {
 
 }
 
-//Obstacle::Obstacle(SquareMovingObject *, SquareMovingObject *, int, int) : top( *new SquareMovingObject() ) {
-//
-//
-//
-//}
+void Obstacle::reset() {
+
+    this->top.reset();
+    this->bot.reset();
+    this->visited = false;
+}
+

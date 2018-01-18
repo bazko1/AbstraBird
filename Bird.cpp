@@ -15,6 +15,8 @@ void Bird::Update(const double d) {
     // normal update
     SquareMovingObject::update( d );
 
+    if( this->getY()  < 0 )
+        this->setY(0);
 }
 
 bool Bird::intersects(const Obstacle &obstacle) {
@@ -24,7 +26,8 @@ bool Bird::intersects(const Obstacle &obstacle) {
 
 void Bird::jump() {
 
-    this->setYSpeed( -4 );
+
+        this->setYSpeed( -4 );
 
 }
 
@@ -33,6 +36,17 @@ Bird::Bird(int x, int y, int h, int w, double xSpd, double ySpd) :
 
 double Bird::getGravity() const {
     return gravity;
+}
+
+void Bird::reset( int wHeight )  {
+
+    this->setX(200);
+    this->setRectX(200);
+    this->setRectY( wHeight/2 );
+    this->setYSpeed( -0.1 );
+
+    this->setY( wHeight/2  );
+
 }
 
 

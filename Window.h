@@ -29,7 +29,7 @@ public:
 
     const int Height = 2*384;
 
-   const int Width = 2*288;
+    const int Width = 2*288;
 
     Window ();
 
