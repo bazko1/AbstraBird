@@ -22,6 +22,8 @@ private:
 
     double ySpeed;//
 
+    int drawXBeginPos;
+
 public:
 
     SquareMovingObject(){}
@@ -48,10 +50,9 @@ public:
 
     void setYSpeed(double ySpeed);
 
-    //virtual void render(SDL_Renderer *renderer) ;
-
     double getX() const;
 
+    void reset();
 
 };
 

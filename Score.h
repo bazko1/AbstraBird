@@ -109,6 +109,14 @@ public:
     }
 
 
+    Score(){ if( not std::is_integral<T>::value ) throw; }
+
+
+    void reset() {
+
+        score = 0;
+    }
+
 private:
 
     T score = 0;
@@ -120,11 +128,8 @@ private:
 
 
 
+
 };
-
-
-
-
 
 
 

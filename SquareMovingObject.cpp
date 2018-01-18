@@ -7,7 +7,7 @@
 
 
 SquareMovingObject::SquareMovingObject(int x, int y, int h, int w, double xSpd, double ySpd) :
-        xSpeed(xSpd),ySpeed(ySpd)
+        xSpeed(xSpd),ySpeed(ySpd) , drawXBeginPos(x)
 {
 
 
@@ -78,12 +78,18 @@ void SquareMovingObject::update(const double deltaTime) {
     y += ySpeed * deltaTime * c;
     x += xSpeed * deltaTime * c;
 
-    rect.x = x;
 
+    rect.x = x;
 
     rect.y = y;
 
 
+}
+
+void SquareMovingObject::reset() {
+
+    setX(drawXBeginPos);
+    this->setRectX(drawXBeginPos);
 }
 
 

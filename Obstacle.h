@@ -60,6 +60,7 @@ public:
 
     void Init(SDL_Renderer *renderer) override;
 
+    void reset();
 
 };
 

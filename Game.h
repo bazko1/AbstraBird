@@ -55,6 +55,7 @@ public:
 
     void increaseGlobalSpeed(double speed );
 
+    void Restart();
 
 
     ~Game();

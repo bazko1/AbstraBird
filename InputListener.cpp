@@ -51,3 +51,17 @@ bool InputListener::isGameFinished() const {
 bool InputListener::isGameStarted() const {
     return gameStarted;
 }
+
+void InputListener::reset() {
+
+    pause = false;
+
+    gameFinished = false;
+
+    gameStarted = false;
+
+    jumped= false;
+
+
+
+}

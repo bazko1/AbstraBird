@@ -274,7 +274,7 @@ int main() {
     bird.setX(200);
     bird.setRectX(200);
 
-    bird.setYSpeed(0);
+    bird.setYSpeed(-0.1);
     FlappyWindow w;
     Game game(bird,vector,w);
 
