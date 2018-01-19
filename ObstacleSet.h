@@ -22,7 +22,6 @@ class ObstacleSet  : public IUpdate   {
 
     std::list <Obstacle> obstacles;
 
-
     int dist;
 
 public:

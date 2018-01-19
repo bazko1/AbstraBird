@@ -27,6 +27,8 @@ public:
     bool intersects(const Obstacle &obstacle) override;
 
     void reset(int);
+
+    bool intersects(const Floor &floor) override;
 };
 
 #endif //ABSTRABIRD_BIRD_H

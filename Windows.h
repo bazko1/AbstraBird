@@ -9,7 +9,7 @@
 #include <SDL_image.h>
 #include "Window.h"
 
-class ColoredWindow : public Window {
+class ColoredWindow : public Window , public  IInitable{
 
 public:
     void render(SDL_Renderer *renderer) override {
@@ -20,7 +20,7 @@ public:
 
 };
 
-class FlappyWindow : public Window {
+class FlappyWindow : public Window , public  IInitable{
 
 private:
 
@@ -35,11 +35,11 @@ public:
 
     void Init(SDL_Renderer *renderer) override {
 
-        bitmapSurface = IMG_Load("/home/bazyli/CLionProjects/AbstraBird/Pictures/bg.png");
+        IInitable::Init( renderer
+                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/bg.png"
+                ,bitmapSurface
+                ,texture );
 
-        texture = SDL_CreateTextureFromSurface ( renderer ,bitmapSurface );
-
-        SDL_FreeSurface( bitmapSurface );
     }
 
     void render(SDL_Renderer *renderer) override {

@@ -11,7 +11,10 @@
 #include "IRenderable.h"
 #include "IInitable.h"
 
-class SquareMovingObject : public SquareObject , public IUpdate , public IRenderable , public IInitable  {
+class SquareMovingObject : public SquareObject , public IUpdate,public IRenderable , public IInitable {
+public:
+    void render(SDL_Renderer *renderer) override;
+
 private:
 
     double x; // For accuracy
@@ -28,7 +31,7 @@ public:
 
     SquareMovingObject(){}
 
-    SquareMovingObject (const SquareMovingObject& );
+    SquareMovingObject ( const SquareMovingObject& );
 
     SquareMovingObject( int x , int y , int h , int w, double xSpd , double ySpd);
 
@@ -53,6 +56,8 @@ public:
     double getX() const;
 
     void reset();
+
+    void Init(SDL_Renderer *renderer) override;
 
 };
 

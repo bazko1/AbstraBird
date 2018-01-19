@@ -28,14 +28,10 @@ public:
 
     void Init (SDL_Renderer * renderer) {
 
-        bitmapSurface = IMG_Load("//home/bazyli/CLionProjects/AbstraBird/Pictures/bird.png");
-
-        texture = SDL_CreateTextureFromSurface( renderer , bitmapSurface  );
-
-        SDL_FreeSurface( bitmapSurface );
-
-
-
+        IInitable::Init( renderer
+                ,"//home/bazyli/CLionProjects/AbstraBird/Pictures/bird.png"
+                ,bitmapSurface
+                ,texture );
 
     }
 

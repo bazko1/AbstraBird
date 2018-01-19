@@ -7,14 +7,14 @@
 
 
 SquareMovingObject::SquareMovingObject(int x, int y, int h, int w, double xSpd, double ySpd) :
-        xSpeed(xSpd),ySpeed(ySpd) , drawXBeginPos(x)
+        xSpeed(xSpd) , ySpeed(ySpd) , drawXBeginPos(x)
 {
 
 
 
-    this->x = static_cast<double > (x);
+    this->x = static_cast< double > (x);
 
-    this->y = static_cast<double > (y);
+    this->y = static_cast< double > (y);
 
     rect.x = x;
     rect.y = y;
@@ -67,7 +67,7 @@ void SquareMovingObject::setYSpeed(double ySpd) {
 
 
 
-SquareMovingObject::SquareMovingObject(const SquareMovingObject & cpy) : SquareMovingObject( cpy.getX() , cpy.getY() , cpy.getRectH() , cpy.getRectW() , cpy.getXSpeed() , cpy.getYSpeed() ) {}
+SquareMovingObject::SquareMovingObject(const SquareMovingObject & cpy) : SquareMovingObject( cpy.getRectX() , cpy.getRectY() , cpy.getRectH() , cpy.getRectW() , cpy.getXSpeed() , cpy.getYSpeed() ) {}
 
 
 
@@ -90,6 +90,14 @@ void SquareMovingObject::reset() {
 
     setX(drawXBeginPos);
     this->setRectX(drawXBeginPos);
+}
+
+void SquareMovingObject::Init(SDL_Renderer *renderer) {
+
+}
+
+void SquareMovingObject::render(SDL_Renderer *renderer) {
+
 }
 
 

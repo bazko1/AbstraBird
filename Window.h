@@ -35,8 +35,6 @@ public:
 
     virtual ~Window();
 
-//    void render(SDL_Renderer *renderer) override;
-
 
 };
 

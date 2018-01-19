@@ -19,6 +19,15 @@ void Bird::Update(const double d) {
         this->setY(0);
 }
 
+bool Bird::intersects(const Floor &floor) {
+
+    for (const std::shared_ptr<SquareMovingObject> &ptr :floor.flrs)
+        if (SDL_HasIntersection(&ptr->getRect(), &this->getRect()))
+            return true;
+
+    return false;
+}
+
 bool Bird::intersects(const Obstacle &obstacle) {
     return SDL_HasIntersection( &this->getRect(), &obstacle.getTopRect() )
          ||   SDL_HasIntersection( &this->getRect(), &obstacle.getBotRect() );
