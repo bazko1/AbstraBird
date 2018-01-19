@@ -10,8 +10,8 @@
 #include "SquareMovingObject.h"
 #include <memory>
 #include <list>
-#include "IResetable.h"
-class Floor : public IUpdate, public IResetable {
+
+class Floor : public IUpdate {
 
 
 public:
@@ -50,30 +50,20 @@ public:
 
     Floor ( int windowW ,int windowH ) :  wH(windowH) , wW(windowW) {
 
-
-        this->reset();
-
-
-    }
-
-    void reset() {
-
-        flrs.clear();
-
         SquareMovingObject* r;
 
-        for ( int i = 0 ; i<=wW; i+=wW/2  )
-        {
+       for ( int i = 0 ; i<=windowW ; i+=windowW/2  )
+       {
 
-            r = new SquareMovingObject( i , wH-75 , 75 , wW/2 , -3 , 0 );
+           r = new SquareMovingObject( i , windowH-75 , 75 , windowW/2 , -1.6 , 0 );
 
-            flrs.push_back( std::shared_ptr<SquareMovingObject> ( r )  );
+           flrs.push_back( std::shared_ptr<SquareMovingObject> ( r )  );
 
-        }
-
+       }
 
 
     }
+
 
 
 
@@ -94,7 +84,7 @@ public:
     void Init (SDL_Renderer * renderer) {
 
         IInitable::Init( renderer
-                ,"//home/rafal/AbstraBird/Pictures/ground.png"
+                ,"//home/bazyli/CLionProjects/AbstraBird/Pictures/ground.png"
                 ,bitmapSurface
                 ,texture );
 

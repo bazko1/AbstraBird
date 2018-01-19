@@ -44,20 +44,15 @@ public:
             srcRect = { nr * 28,0,28,46 };
 
 
-            dstRect = {288+28*count , 384/4, 3*28/2 , 3*46/2   } ;
+            dstRect = { 288-28+28*count , 384/4, 3*28/2 , 3*46/2   } ;
 
 
             SDL_RenderCopyEx( renderer, texture, &srcRect, &dstRect,  0, NULL, SDL_FLIP_NONE );
 
 
             count++;
-            // std::cout<<nr<<std::endl;
 
         }
-
-
-
-        //SDL_Rect srcRect = {0*28,0,28,46 };
 
 
 
@@ -65,12 +60,11 @@ public:
 
     void Init(SDL_Renderer *renderer) override {
 
-        bitmapSurface = IMG_Load("//home/bazyli/CLionProjects/AbstraBird/Pictures/SpriteFont.png");
 
-        texture = SDL_CreateTextureFromSurface( renderer , bitmapSurface  );
-
-
-        SDL_FreeSurface( bitmapSurface );
+        IInitable::Init( renderer
+                ,"//home/bazyli/CLionProjects/AbstraBird/Pictures/SpriteFont.png"
+                ,bitmapSurface
+                ,texture );
 
 
 

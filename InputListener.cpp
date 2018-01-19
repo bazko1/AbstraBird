@@ -16,7 +16,7 @@ void InputListener::checkInput() {
 
 
 
-            if ( e.type == SDL_KEYDOWN)
+            if ( e.type == SDL_KEYUP)
                 this->gameStarted = true;
 
 

@@ -19,6 +19,8 @@ void Game::mainLoop() {
 
     Timer timer;
 
+    double d;
+
     while (true)
     {
 
@@ -36,12 +38,15 @@ void Game::mainLoop() {
 
                 finished = false;
                 SDL_Delay(1000);
+
+                timer.GetDelta(); // dont wanna count delay
             }
 
 
+            d = timer.GetDelta();
+
             if ( !listener.isPause()  && listener.isGameStarted() && !finished )
             {
-
 
 
                 if ( listener.JumpButtonClicked() )
@@ -50,14 +55,12 @@ void Game::mainLoop() {
                     listener.setJumped( false );
                 }
 
-               this->update( timer.GetDelta() );
+               this->update( d );
 
 
             }
-            else
-                timer.GetDelta();
 
-
+            f.update(d);
 
 
             render();
@@ -71,12 +74,12 @@ void Game::update(const double d) {
 
     this->bird.update(d);
 
-    for (Obstacle &o : obstacles) {
 
+    for (Obstacle &o : obstacles) {
         o.update(d);
 
 
-        if ( bird.intersects ( o ) ) {
+        if ( bird.intersects ( o ) || bird.intersects(f) ) {
 
             this->finished = true;
 
@@ -84,6 +87,7 @@ void Game::update(const double d) {
 
         if ( score( o ) )
         this->score1.scorePlus();
+
 
     }
 
@@ -97,6 +101,8 @@ void Game::render() {
 
     window.render(renderer);
 
+    f.render(renderer);
+
     bird.render(renderer);
 
     for (Obstacle &o : obstacles)
@@ -109,14 +115,19 @@ void Game::render() {
 
 }
 
-Game::Game(Bird &b , std::vector<Obstacle>& obs , Window& w ) : bird(b) , obstacles( obs.begin() , obs.end() ) , gameLogic( window.Height , window.Width ) , orginal(obs) , window(w) {
+Game::Game(Bird &b , std::vector<Obstacle>& obs , Window& w ) : bird(b) , obstacles( obs.begin() , obs.end() ) , gameLogic( window.Height , window.Width )  , window(w)
+,f(window.Width,window.Height)
+{
 
 
     this->renderer = SDL_CreateRenderer(this->window.getSdl_window(), -1, SDL_RENDERER_ACCELERATED);
 
     window.Init(renderer);
 
+    f.Init(renderer);
+
     bird.Init(renderer);
+
 
     for (Obstacle &o : obstacles)
         o.Init( renderer );
@@ -162,8 +173,6 @@ bool Game::score(Obstacle &obstacle) {
 
 void Game::increaseGlobalSpeed(double speed) {
 
-    //bird.setYSpeed(  bird.getYSpeed() )
-
 }
 
 void Game::Restart() {
@@ -176,6 +185,7 @@ void Game::Restart() {
     score1.reset();
 
     this->listener.reset();
+
 
 }
 

@@ -24,6 +24,7 @@ public:
     }
 
     void Init(SDL_Renderer* r) {};
+
 };
 
 
@@ -80,11 +81,11 @@ public:
 
     void Init (SDL_Renderer * renderer) {
 
-            bitmapSurface = IMG_Load("//home/bazyli/CLionProjects/AbstraBird/Pictures/tube1.png");
 
-            texture = SDL_CreateTextureFromSurface( renderer , bitmapSurface  );
-
-            SDL_FreeSurface( bitmapSurface );
+            IInitable::Init( renderer
+                ,"//home/bazyli/CLionProjects/AbstraBird/Pictures/tube1.png"
+                ,bitmapSurface
+                ,texture );
 
     }
 
@@ -117,11 +118,11 @@ public:
 
     void Init (SDL_Renderer * renderer) {
 
-        bitmapSurface = IMG_Load("//home/bazyli/CLionProjects/AbstraBird/Pictures/tube2.png");
 
-        texture = SDL_CreateTextureFromSurface( renderer , bitmapSurface  );
-
-        SDL_FreeSurface( bitmapSurface );
+        IInitable::Init( renderer
+                ,"//home/bazyli/CLionProjects/AbstraBird/Pictures/tube2.png"
+                ,bitmapSurface
+                ,texture );
 
     }
 

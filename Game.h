@@ -12,6 +12,7 @@
 #include "InputListener.h"
 #include "Obstacle.h"
 #include "Score.h"
+#include "Floor.h"
 
 
 class Game : public IUpdate {
@@ -22,9 +23,7 @@ private:
 
     InputListener listener;
 
-    std::list<Obstacle> obstacles;
-
-    const std::vector<Obstacle> orginal;
+    std::vector<Obstacle> obstacles;
 
     GameLogic gameLogic;
 
@@ -36,9 +35,8 @@ private:
 
     Score<int> score1;
 
-public:
 
-    //constexpr static const double speedConst = 500.;
+public:
 
 
     bool score( Obstacle& obstacle );
@@ -57,6 +55,7 @@ public:
 
     void Restart();
 
+    FlappyFloor f;
 
     ~Game();
 };
