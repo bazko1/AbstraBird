@@ -60,7 +60,7 @@ void Game::mainLoop() {
 
             }
 
-            f.update(d);
+            floor.update(d);
 
 
             render();
@@ -79,7 +79,7 @@ void Game::update(const double d) {
         o.update(d);
 
 
-        if ( bird.intersects ( o ) || bird.intersects(f) ) {
+        if ( bird.intersects ( o ) || bird.intersects(floor) ) {
 
             this->finished = true;
 
@@ -101,7 +101,7 @@ void Game::render() {
 
     window.render(renderer);
 
-    f.render(renderer);
+    floor.render(renderer);
 
     bird.render(renderer);
 
@@ -116,7 +116,7 @@ void Game::render() {
 }
 
 Game::Game(Bird &b , std::vector<Obstacle>& obs , Window& w ) : bird(b) , obstacles( obs.begin() , obs.end() ) , gameLogic( window.Height , window.Width )  , window(w)
-,f(window.Width,window.Height)
+,floor(window.Width,window.Height)
 {
 
 
@@ -124,7 +124,7 @@ Game::Game(Bird &b , std::vector<Obstacle>& obs , Window& w ) : bird(b) , obstac
 
     window.Init(renderer);
 
-    f.Init(renderer);
+    floor.Init(renderer);
 
     bird.Init(renderer);
 
@@ -184,7 +184,7 @@ void Game::Restart() {
 
     score1.reset();
 
-    f.reset();
+    floor.reset();
 
     this->listener.reset();
 

@@ -35,6 +35,8 @@ private:
 
     Score<int> score1;
 
+    FlappyFloor floor;
+
 
 public:
 
@@ -54,8 +56,6 @@ public:
     void increaseGlobalSpeed(double speed );
 
     void Restart();
-
-    FlappyFloor f;
 
     ~Game();
 };
