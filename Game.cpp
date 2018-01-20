@@ -184,6 +184,8 @@ void Game::Restart() {
 
     score1.reset();
 
+    f.reset();
+
     this->listener.reset();
 
 

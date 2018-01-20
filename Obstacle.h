@@ -39,9 +39,7 @@ public:
 
     int getW(); // same in both pipes
 
-
     bool isVisited() const;
-
 
     void setVisited(bool visited);
 

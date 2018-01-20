@@ -35,7 +35,7 @@ void Obstacle::update(const double d) {
         bot.setY( randY );
         bot.setRectH( randY );
 
-        visited = false;
+        visited = false; // for counting points
 
     }
 
