@@ -12,12 +12,12 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include "IResetable.h"
 
+class Obstacle : public IUpdate, public IRenderable , public IInitable, public IResetable {
 
-class Obstacle : public IUpdate, public IRenderable , public IInitable{
-
-    SquareMovingObject& top;
-    SquareMovingObject& bot;
+    SquareMovingObject* top;
+    SquareMovingObject* bot;
 
     bool visited = false;
 
@@ -54,12 +54,13 @@ public:
     void update(const double d) override;
 
 
-    Obstacle( SquareMovingObject& , SquareMovingObject& , int , int);
+    Obstacle( SquareMovingObject* , SquareMovingObject* , int , int);
 
     void Init(SDL_Renderer *renderer) override;
 
     void reset();
 
+    ~Obstacle();
 };
 
 

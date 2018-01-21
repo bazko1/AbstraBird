@@ -13,37 +13,44 @@
 #include "Obstacle.h"
 #include "Score.h"
 #include "Floor.h"
-
+#include <memory>
 
 class Game : public IUpdate {
 
 private:
 
-    Window& window;
+    std::shared_ptr<Window> window;
 
-    InputListener listener;
+    std::shared_ptr<InputListener> listener;
 
-    std::vector<Obstacle> obstacles;
+    std::vector<std::shared_ptr<Obstacle>> obstacles;
 
-    GameLogic gameLogic;
+    std::shared_ptr<GameLogic> gameLogic;
 
-    Bird& bird;
+    std::shared_ptr<Bird> bird;
 
     SDL_Renderer* renderer = NULL;
 
     bool finished = false;
 
-    Score<int> score1;
+    std::shared_ptr<Score<int>> score1;
 
-    FlappyFloor floor;
+    std::shared_ptr<FlappyFloor> floor;
 
+    std::vector<std::shared_ptr<IInitable>> inits;
+
+    std::vector<std::shared_ptr<IRenderable>> renders;
+
+    std::vector<std::shared_ptr<IUpdate>> updates;
+
+    std::vector<std::shared_ptr<IResetable>> resets;
 
 public:
 
 
     bool score( Obstacle& obstacle );
 
-    Game(Bird& , std::vector<Obstacle>& obs , Window& );
+    Game(std::shared_ptr<Bird> , std::vector<std::shared_ptr<Obstacle>>* obs , std::shared_ptr<Window>);
 
     void Start();
 

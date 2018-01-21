@@ -5,8 +5,8 @@
 #ifndef ABSTRABIRD_INPUTLISTENER_H
 #define ABSTRABIRD_INPUTLISTENER_H
 
-
-class InputListener {
+#include "IResetable.h"
+class InputListener: public IResetable {
 
 private:
 
