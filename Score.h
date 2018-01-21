@@ -13,6 +13,7 @@
 #include "IUpdate.h"
 #include "IInitable.h"
 #include "iresetable.h"
+#include "dirmanager.h"e
 template <typename T>
 class Score : public IRenderable  , public IInitable, public IResetable{
 public:
@@ -62,7 +63,7 @@ public:
 
 
         IInitable::Init( renderer
-                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/SpriteFont.png"
+                ,DirManager::getDir("SpriteFont.png").c_str()
                 ,bitmapSurface
                 ,texture );
 

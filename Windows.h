@@ -9,6 +9,7 @@
 #include <SDL_image.h>
 #include "Window.h"
 #include "IInitable.h"
+#include "dirmanager.h"
 class ColoredWindow : public Window{
 
 public:
@@ -36,7 +37,7 @@ public:
     void Init(SDL_Renderer *renderer) override {
 
         IInitable::Init( renderer
-                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/bg.png"
+                ,DirManager::getDir("bg.png").c_str()
                 ,bitmapSurface
                 ,texture );
 

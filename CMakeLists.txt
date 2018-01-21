@@ -3,9 +3,9 @@ project(AbstraBird)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp Window.h Window.cpp DeltaTimer.h SquareObject.h SquareObject.cpp Game.cpp Game.h InputListener.cpp InputListener.h SquareMovingObject.h SquareMovingObject.cpp RectBird.h Bird.cpp Bird.h  Obstacle.cpp Obstacle.h Pipes.h IIntersects.h IUpdate.h IRenderable.h Windows.h IInitable.h AbstraBird.h Score.h Floor.h IResetable.h GameFabric.h Rng.h Levels.h)
+set(SOURCE_FILES main.cpp Window.h Window.cpp DeltaTimer.h SquareObject.h SquareObject.cpp Game.cpp Game.h InputListener.cpp InputListener.h SquareMovingObject.h SquareMovingObject.cpp RectBird.h Bird.cpp Bird.h  Obstacle.cpp Obstacle.h Pipes.h IIntersects.h IUpdate.h IRenderable.h Windows.h IInitable.h AbstraBird.h Score.h Floor.h IResetable.h GameFabric.h Rng.h Levels.h dirmanager.h)
 add_executable(AbstraBird ${SOURCE_FILES})
-
+add_definitions( -D_VAR="${PROJECT_SOURCE_DIR}/Pictures/")
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 
