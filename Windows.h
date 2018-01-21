@@ -9,7 +9,7 @@
 #include <SDL_image.h>
 #include "Window.h"
 #include "IInitable.h"
-class ColoredWindow : public Window , public  IInitable{
+class ColoredWindow : public Window{
 
 public:
     void render(SDL_Renderer *renderer) override {
@@ -20,7 +20,7 @@ public:
 
 };
 
-class FlappyWindow : public Window , public  IInitable{
+class FlappyWindow : public Window {
 
 private:
 

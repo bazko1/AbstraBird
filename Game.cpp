@@ -62,10 +62,9 @@ void Game::mainLoop() {
                 }
 
 
-
+                this->update( d );
 
             }
-            this->update( d );
 
 
             render();
@@ -109,8 +108,6 @@ void Game::render() {
 }
 
 Game::Game(std::shared_ptr<Bird> b , std::vector<std::shared_ptr<Obstacle> > *obs , std::shared_ptr<Window> w) : bird(b) , obstacles( obs->begin() , obs->end() ) ,  window(w)
-   // inits{std::dynamic_pointer_cast<IInitable>(w)}, renders{std::dynamic_pointer_cast<IRenderable>(window)},
-  //  updates{std::dynamic_pointer_cast<IUpdate>(bird)}
 {
       //All objects initialization
       gameLogic = std::make_shared<GameLogic>( window->Height , window->Width );
@@ -119,7 +116,7 @@ Game::Game(std::shared_ptr<Bird> b , std::vector<std::shared_ptr<Obstacle> > *ob
       listener = std::make_shared<InputListener>();
       //Initialization of IInitable vector
       this->renderer = SDL_CreateRenderer(this->window->getSdl_window(), -1, SDL_RENDERER_ACCELERATED);
-      inits = {std::dynamic_pointer_cast<IInitable>(window), floor, bird, score1};
+      inits = {window, floor, bird, score1};
       inits.insert(inits.end(),obs->begin(),obs->end());
       //Initialization of IRenderable vector
       renders = {window,floor, bird};

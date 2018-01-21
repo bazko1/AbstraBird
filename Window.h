@@ -9,11 +9,11 @@
 #include <SDL_video.h>
 #include <SDL.h>
 #include "IRenderable.h"
-
+#include "IInitable.h"
 const static int Height = 2*384;
 const static int Width = 2*288;
 
-class Window : public IRenderable {
+class Window : public IRenderable, public IInitable{
 
 private:
 
