@@ -58,10 +58,6 @@ int main() {
     //Game game = GameFabric<FlappyTopPipe, FlappyBotPipe, AbstraBird>::getGame(200,-0.1,Hard);
     game.Start();
 
-//    RNG<int,std::vector> rng(1,4,1 );
-//
-//    for (int i =0;i<100;i++)
-//    std::cout<<rng.getRandom()<<std::endl;
 
     return 0;
 
