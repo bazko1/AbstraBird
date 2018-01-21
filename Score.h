@@ -13,7 +13,7 @@
 #include "IUpdate.h"
 #include "IInitable.h"
 #include "iresetable.h"
-#include "dirmanager.h"e
+#include "dirmanager.h"
 template <typename T>
 class Score : public IRenderable  , public IInitable, public IResetable{
 public:
