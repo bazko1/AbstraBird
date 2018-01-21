@@ -16,8 +16,7 @@
 //static const int height = 2*384;
 
 //int piece = 72; //1/8 width
-
-
+#include "dirmanager.h"
 int main() {
 
 
@@ -51,9 +50,7 @@ int main() {
     //GameFabric<FlappyTopPipe, FlappyBotPipe, AbstraBird> fabric; //
 //    RNG<int,std::vector> rng(1,10,1);
 //    rng.getRandom();
-
-
-    Game game = GameFabric<FlappyTopPipe, FlappyBotPipe, AbstraBird>::getGame(200,-0.1,Easy);
+    Game game = GameFabric<FlappyTopPipe, FlappyBotPipe, AbstraBird>::getGame(200,-0.1,Hard);
     //Game game = GameFabric<FlappyTopPipe, FlappyBotPipe, AbstraBird>::getGame(200,-0.1,Medium);
     //Game game = GameFabric<FlappyTopPipe, FlappyBotPipe, AbstraBird>::getGame(200,-0.1,Hard);
     game.Start();

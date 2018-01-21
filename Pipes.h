@@ -9,7 +9,7 @@
 #include "IRenderable.h"
 #include "IUpdate.h"
 #include "SquareMovingObject.h"
-
+#include "dirmanager.h"
 class SquareFilledPipe : public SquareMovingObject {
 public:
 
@@ -83,7 +83,7 @@ public:
 
 
             IInitable::Init( renderer
-                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/tube1.png"
+                ,DirManager::getDir("tube1.png").c_str()
                 ,bitmapSurface
                 ,texture );
 
@@ -120,7 +120,7 @@ public:
 
 
         IInitable::Init( renderer
-                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/tube2.png"
+                ,DirManager::getDir("tube2.png").c_str()
                 ,bitmapSurface
                 ,texture );
 

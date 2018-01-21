@@ -8,7 +8,7 @@
 #include <SDL_image.h>
 #include "Bird.h"
 #include "RectBird.h"
-
+#include "dirmanager.h"
 class AbstraBird : public RectFillBird {
 
 
@@ -29,7 +29,7 @@ public:
     void Init (SDL_Renderer * renderer) {
 
         IInitable::Init( renderer
-                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/bird.png"
+                ,DirManager::getDir("bird.png").c_str()
                 ,bitmapSurface
                 ,texture );
 

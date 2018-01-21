@@ -11,6 +11,7 @@
 #include <memory>
 #include <list>
 #include "IResetable.h"
+#include "dirmanager.h"
 class Floor : public IUpdate, public IResetable {
 
 
@@ -94,7 +95,7 @@ public:
     void Init (SDL_Renderer * renderer) {
 
         IInitable::Init( renderer
-                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/ground.png"
+                ,DirManager::getDir("ground.png").c_str()
                 ,bitmapSurface
                 ,texture );
 
