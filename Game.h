@@ -7,12 +7,11 @@
 
 #include <vector>
 #include "Window.h"
-#include "GameLogic.h"
-#include "ObstacleSet.h"
 #include "InputListener.h"
 #include "Obstacle.h"
 #include "Score.h"
 #include "Floor.h"
+#include "Bird.h"
 #include <memory>
 
 class Game : public IUpdate {
@@ -25,7 +24,7 @@ private:
 
     std::vector<std::shared_ptr<Obstacle>> obstacles;
 
-    std::shared_ptr<GameLogic> gameLogic;
+    //std::shared_ptr<GameLogic> gameLogic;
 
     std::shared_ptr<Bird> bird;
 

@@ -23,7 +23,8 @@ void Obstacle::update(const double d) {
     if ( top->getX() + top->getRect().w < 0) {
 
         top->setX(winWidth);
-        top->setRectH( winHeight/2  -80 - gen()%60  );
+        top->setRectH( winHeight/2 -  rng->getRandom()
+        );
     }
 
 
@@ -31,7 +32,7 @@ void Obstacle::update(const double d) {
 
         bot->setX(winWidth);
 
-        int randY = winHeight/2 + 50 +gen()%50;
+        int randY = winHeight/2 + rng->getRandom();
         bot->setY( randY );
         bot->setRectH( randY );
 
@@ -46,7 +47,12 @@ void Obstacle::update(const double d) {
 
 
 Obstacle::Obstacle(SquareMovingObject *Top, SquareMovingObject *Bot , int WinWidth , int winHeight )
-: top(  Top  ) , bot( Bot ) , winWidth(WinWidth) , winHeight(winHeight) {}
+: top(  Top  ) , bot( Bot ) ,
+winWidth(WinWidth) , winHeight(winHeight)
+{
+
+ rng = std::make_shared<RNG<int,std::vector>>(50,60,1);
+}
 
 bool Obstacle::isVisited() const {
     return visited;
@@ -90,3 +96,17 @@ Obstacle::~Obstacle() {
     delete top;
     delete bot;
 }
+
+Obstacle::Obstacle(SquareMovingObject *Top, SquareMovingObject *Bot , int WinWidth , int winHeight,int a ,int b )
+        : top(  Top  ) , bot( Bot ) ,
+          winWidth(WinWidth) , winHeight(winHeight)
+{
+
+    rng = std::make_shared<RNG<int,std::vector>>(a,b,1);
+}
+
+Obstacle::Obstacle(SquareMovingObject *Top, SquareMovingObject *Bot , int WinWidth ,
+ int winHeight,    std::shared_ptr < RNG <int , std::vector> > Rng )
+        : top(  Top  ) , bot( Bot ) ,
+          winWidth(WinWidth) , winHeight(winHeight)
+        ,rng(Rng)  {}

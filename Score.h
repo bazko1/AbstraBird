@@ -62,7 +62,7 @@ public:
 
 
         IInitable::Init( renderer
-                ,"/home/rafal/AbstraBird/AbstraBird/Pictures/SpriteFont.png"
+                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/SpriteFont.png"
                 ,bitmapSurface
                 ,texture );
 

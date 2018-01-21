@@ -36,7 +36,7 @@ public:
     void Init(SDL_Renderer *renderer) override {
 
         IInitable::Init( renderer
-                ,"/home/rafal/AbstraBird/Pictures/bg.png"
+                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/bg.png"
                 ,bitmapSurface
                 ,texture );
 

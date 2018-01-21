@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Windows.h"
 #include "AbstraBird.h"
+#include "Levels.h"
 #include <type_traits>
 static const int width = 2*288;
 static const int height = 2*384;
@@ -26,7 +27,7 @@ static Game getGame(int,int BirdSpeedY) {
 template <class Top, class Bot, class Bird, class Enable = void>
 class GameFabric {
 private:
-     Game getGame(int birdInitX, double birdSpeedY);
+     Game getGame(int birdInitX, double birdSpeedY,Level);
 };
 template <class Top, class Bot, class Bird>
 class GameFabric<Top, Bot, Bird,
@@ -34,7 +35,7 @@ class GameFabric<Top, Bot, Bird,
         && (std::is_base_of<AbstraBird, Bird>::value)> :: type >
 {
 public:
-    static Game getGame(int birdInitX, double birdSpeedY) {
+    static Game getGame(int birdInitX, double birdSpeedY , Level level) {
 
         Top* pipe = new Top( height , width , piece , 240 , -3 ); //Top
         Bot* pipe2 = new Bot( height , width , piece , 140 , -3 ); //Bot
@@ -43,9 +44,39 @@ public:
         Top* pipe3 = new Top(height , width + 5*piece ,144/2,360,-3 ); //Top
         Bot* pipe4 = new Bot(height , width + 5*piece ,144/2 ,240 , -3 ); //Bot
 
-        std::shared_ptr<Obstacle> o = std::make_shared<Obstacle>(pipe , pipe2 , width + piece  ,height);
+        std::shared_ptr < RNG <int , std::vector> > rng;
 
-        std::shared_ptr<Obstacle> o2 = std::make_shared<Obstacle>( pipe3,pipe4 , width + piece, height);
+        switch(level)
+        {
+            case Easy:
+            {
+                rng = std::make_shared<RNG<int,std::vector>>(130,200,1);
+                break;
+
+            }
+
+            case Medium:
+            {
+                rng = std::make_shared<RNG<int,std::vector>>(70,130,1);
+                break;
+            }
+
+            case Hard:
+            {
+                rng = std::make_shared<RNG<int,std::vector>>(60,90,1);
+                break;
+
+            }
+
+
+        }
+
+
+
+
+        std::shared_ptr<Obstacle> o = std::make_shared<Obstacle>(pipe , pipe2 , width + piece  ,height,rng);
+
+        std::shared_ptr<Obstacle> o2 = std::make_shared<Obstacle>( pipe3,pipe4 , width + piece, height,rng);
 
 
         std::vector <std::shared_ptr<Obstacle>> *vector = new std::vector<std::shared_ptr<Obstacle>> { o , o2  };

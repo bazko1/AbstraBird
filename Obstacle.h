@@ -9,10 +9,11 @@
 #include "SquareMovingObject.h"
 #include "IUpdate.h"
 #include "IRenderable.h"
-
 #include <stdlib.h>
 #include <time.h>
+#include <memory>
 #include "IResetable.h"
+#include "Rng.h"
 
 class Obstacle : public IUpdate, public IRenderable , public IInitable, public IResetable {
 
@@ -25,7 +26,10 @@ class Obstacle : public IUpdate, public IRenderable , public IInitable, public I
 
     int winHeight;
 
-    int ( *gen )() = [](){ srand( time(NULL) ); return rand();  };
+    std::shared_ptr < RNG <int , std::vector> > rng;
+
+    //int ( *gen )() = rng->getRandom;
+    //[](){ srand( time(NULL) ); return rand();  };
 
 
 
@@ -55,6 +59,10 @@ public:
 
 
     Obstacle( SquareMovingObject* , SquareMovingObject* , int , int);
+
+    Obstacle( SquareMovingObject* , SquareMovingObject* , int , int,int , int);
+
+    Obstacle( SquareMovingObject* , SquareMovingObject* , int , int , std::shared_ptr < RNG <int , std::vector> > );
 
     void Init(SDL_Renderer *renderer) override;
 

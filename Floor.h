@@ -94,7 +94,7 @@ public:
     void Init (SDL_Renderer * renderer) {
 
         IInitable::Init( renderer
-                ,"//home/rafal/AbstraBird/Pictures/ground.png"
+                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/ground.png"
                 ,bitmapSurface
                 ,texture );
 

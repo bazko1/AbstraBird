@@ -83,7 +83,7 @@ public:
 
 
             IInitable::Init( renderer
-                ,"//home/rafal/AbstraBird/Pictures/tube1.png"
+                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/tube1.png"
                 ,bitmapSurface
                 ,texture );
 
@@ -120,7 +120,7 @@ public:
 
 
         IInitable::Init( renderer
-                ,"//home/rafal/AbstraBird/Pictures/tube2.png"
+                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/tube2.png"
                 ,bitmapSurface
                 ,texture );
 

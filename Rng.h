@@ -22,7 +22,7 @@ public:
 
     T getRandom(){
 
-        std::random_shuffle(cont.begin(), cont.end());
+        std::random_shuffle( cont.begin(), cont.end() );
         return cont[0];
     }
 
