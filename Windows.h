@@ -8,7 +8,7 @@
 
 #include <SDL_image.h>
 #include "Window.h"
-
+#include "IInitable.h"
 class ColoredWindow : public Window , public  IInitable{
 
 public:
@@ -36,7 +36,7 @@ public:
     void Init(SDL_Renderer *renderer) override {
 
         IInitable::Init( renderer
-                ,"/home/bazyli/CLionProjects/AbstraBird/Pictures/bg.png"
+                ,"/home/rafal/AbstraBird/Pictures/bg.png"
                 ,bitmapSurface
                 ,texture );
 

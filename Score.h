@@ -12,9 +12,9 @@
 #include "IRenderable.h"
 #include "IUpdate.h"
 #include "IInitable.h"
-
+#include "iresetable.h"
 template <typename T>
-class Score : public IRenderable  , public IInitable{
+class Score : public IRenderable  , public IInitable, public IResetable{
 public:
 
 
@@ -62,7 +62,7 @@ public:
 
 
         IInitable::Init( renderer
-                ,"//home/bazyli/CLionProjects/AbstraBird/Pictures/SpriteFont.png"
+                ,"/home/rafal/AbstraBird/AbstraBird/Pictures/SpriteFont.png"
                 ,bitmapSurface
                 ,texture );
 

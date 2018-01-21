@@ -29,7 +29,7 @@ public:
     void Init (SDL_Renderer * renderer) {
 
         IInitable::Init( renderer
-                ,"//home/bazyli/CLionProjects/AbstraBird/Pictures/bird.png"
+                ,"//home/rafal/AbstraBird/Pictures/bird.png"
                 ,bitmapSurface
                 ,texture );
 

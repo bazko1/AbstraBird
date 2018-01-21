@@ -10,8 +10,8 @@
 #include "SquareMovingObject.h"
 #include <memory>
 #include <list>
-
-class Floor : public IUpdate {
+#include "IResetable.h"
+class Floor : public IUpdate, public IResetable {
 
 
 public:
@@ -94,7 +94,7 @@ public:
     void Init (SDL_Renderer * renderer) {
 
         IInitable::Init( renderer
-                ,"//home/bazyli/CLionProjects/AbstraBird/Pictures/ground.png"
+                ,"//home/rafal/AbstraBird/Pictures/ground.png"
                 ,bitmapSurface
                 ,texture );
 

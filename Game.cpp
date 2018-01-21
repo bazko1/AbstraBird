@@ -7,9 +7,15 @@
 #include <iostream>
 #include "Game.h"
 #include "DeltaTimer.h"
+#include <memory>
+#include "Floor.h"
 
 void Game::Start() {
+    for(std::shared_ptr<IInitable> i: inits) {
+        i->Init(renderer);
+    }
 
+    this->mainLoop();
 
 }
 
@@ -25,10 +31,10 @@ void Game::mainLoop() {
     {
 
 
-            this->listener.checkInput();
+            this->listener->checkInput();
 
 
-            if ( listener.isGameFinished()   )
+            if ( listener->isGameFinished()   )
                 break;
 
 
@@ -45,22 +51,21 @@ void Game::mainLoop() {
 
             d = timer.GetDelta();
 
-            if ( !listener.isPause()  && listener.isGameStarted() && !finished )
+            if ( !listener->isPause()  && listener->isGameStarted() && !finished )
             {
 
 
-                if ( listener.JumpButtonClicked() )
+                if ( listener->JumpButtonClicked() )
                 {
-                    bird.jump();
-                    listener.setJumped( false );
+                    bird->jump();
+                    listener->setJumped( false );
                 }
 
-               this->update( d );
+
 
 
             }
-
-            floor.update(d);
+            this->update( d );
 
 
             render();
@@ -71,22 +76,20 @@ void Game::mainLoop() {
 }
 
 void Game::update(const double d) {
+    for(std::shared_ptr<IUpdate> up: updates) {
+        up->update(d);
+    }
 
-    this->bird.update(d);
+    for (std::shared_ptr<Obstacle> o : obstacles) {
 
-
-    for (Obstacle &o : obstacles) {
-        o.update(d);
-
-
-        if ( bird.intersects ( o ) || bird.intersects(floor) ) {
+        if ( bird->intersects ( *o ) || bird->intersects(*floor) ) {
 
             this->finished = true;
 
         }
 
-        if ( score( o ) )
-        this->score1.scorePlus();
+        if ( score( *o ) )
+        this->score1->scorePlus();
 
 
     }
@@ -98,43 +101,38 @@ void Game::render() {
 
 
     SDL_RenderClear(renderer);
-
-    window.render(renderer);
-
-    floor.render(renderer);
-
-    bird.render(renderer);
-
-    for (Obstacle &o : obstacles)
-        o.render(renderer);
-
-    score1.render(renderer);
-
+    for (std::shared_ptr<IRenderable> r: renders)
+        r->render(renderer);
     SDL_RenderPresent(renderer);
 
 
 }
 
-Game::Game(Bird &b , std::vector<Obstacle>& obs , Window& w ) : bird(b) , obstacles( obs.begin() , obs.end() ) , gameLogic( window.Height , window.Width )  , window(w)
-,floor(window.Width,window.Height)
+Game::Game(std::shared_ptr<Bird> b , std::vector<std::shared_ptr<Obstacle> > *obs , std::shared_ptr<Window> w) : bird(b) , obstacles( obs->begin() , obs->end() ) ,  window(w)
+   // inits{std::dynamic_pointer_cast<IInitable>(w)}, renders{std::dynamic_pointer_cast<IRenderable>(window)},
+  //  updates{std::dynamic_pointer_cast<IUpdate>(bird)}
 {
+      //All objects initialization
+      gameLogic = std::make_shared<GameLogic>( window->Height , window->Width );
+      floor = std::make_shared<FlappyFloor>(this->window->Width,this->window->Height);
+      score1 = std::make_shared<Score<int>>();
+      listener = std::make_shared<InputListener>();
+      //Initialization of IInitable vector
+      this->renderer = SDL_CreateRenderer(this->window->getSdl_window(), -1, SDL_RENDERER_ACCELERATED);
+      inits = {std::dynamic_pointer_cast<IInitable>(window), floor, bird, score1};
+      inits.insert(inits.end(),obs->begin(),obs->end());
+      //Initialization of IRenderable vector
+      renders = {window,floor, bird};
+      renders.insert(renders.end(),obs->begin(),obs->end());
+      renders.push_back(score1);
+      //Initialization of IUpdate
+      updates = {bird,floor};
+      updates.insert(updates.end(),obs->begin(),obs->end());
+      //Initialization of IResetables
+      resets = {score1,listener,floor};
+      resets.insert(resets.end(),obs->begin(),obs->end());
+      //Run init on all Initable objects
 
-
-    this->renderer = SDL_CreateRenderer(this->window.getSdl_window(), -1, SDL_RENDERER_ACCELERATED);
-
-    window.Init(renderer);
-
-    floor.Init(renderer);
-
-    bird.Init(renderer);
-
-
-    for (Obstacle &o : obstacles)
-        o.Init( renderer );
-
-      score1.Init(renderer);
-
-        this->mainLoop();
 
 
 }
@@ -155,10 +153,10 @@ bool Game::score(Obstacle &obstacle) {
 
     int y1 = 0;
 
-    int y2 = window.Height;
+    int y2 = window->Height;
 
 
-    if(  !obstacle.isVisited() &&  SDL_IntersectRectAndLine( &bird.getRect() ,  &x , &y1 , &x , &y2  )  )
+    if(  !obstacle.isVisited() &&  SDL_IntersectRectAndLine( &bird->getRect() ,  &x , &y1 , &x , &y2  )  )
     {
         obstacle.setVisited( true );
         return true;
@@ -177,16 +175,10 @@ void Game::increaseGlobalSpeed(double speed) {
 
 void Game::Restart() {
 
-    bird.reset( window.Width ) ;
+    bird->reset( window->Width ) ;
 
-    for ( Obstacle& o : obstacles   )
-        o.reset();
-
-    score1.reset();
-
-    floor.reset();
-
-    this->listener.reset();
+    for(std::shared_ptr<IResetable> res : resets)
+        res->reset();
 
 
 }
