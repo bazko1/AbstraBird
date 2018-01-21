@@ -110,7 +110,6 @@ void Game::render() {
 Game::Game(std::shared_ptr<Bird> b , std::vector<std::shared_ptr<Obstacle> > *obs , std::shared_ptr<Window> w) : bird(b) , obstacles( obs->begin() , obs->end() ) ,  window(w)
 {
       //All objects initialization
-      gameLogic = std::make_shared<GameLogic>( window->Height , window->Width );
       floor = std::make_shared<FlappyFloor>(this->window->Width,this->window->Height);
       score1 = std::make_shared<Score<int>>();
       listener = std::make_shared<InputListener>();

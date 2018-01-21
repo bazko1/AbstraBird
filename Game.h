@@ -24,8 +24,6 @@ private:
 
     std::vector<std::shared_ptr<Obstacle>> obstacles;
 
-    //std::shared_ptr<GameLogic> gameLogic;
-
     std::shared_ptr<Bird> bird;
 
     SDL_Renderer* renderer = NULL;
