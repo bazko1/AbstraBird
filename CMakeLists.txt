@@ -3,9 +3,18 @@ project(AbstraBird)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp Window.h Window.cpp DeltaTimer.h SquareObject.h SquareObject.cpp Game.cpp Game.h InputListener.cpp InputListener.h SquareMovingObject.h SquareMovingObject.cpp RectBird.h Bird.cpp Bird.h  Obstacle.cpp Obstacle.h Pipes.h IIntersects.h IUpdate.h IRenderable.h Windows.h IInitable.h AbstraBird.h Score.h Floor.h IResetable.h GameFabric.h Rng.h Levels.h dirmanager.h)
+
+include_directories(mainGame/headers)
+
+file(GLOB SOURCE_FILES
+    "mainGame/src/*.cpp"
+    "main.cpp"
+)
+
+
+
 add_executable(AbstraBird ${SOURCE_FILES})
-add_definitions( -D_VAR="${PROJECT_SOURCE_DIR}/Pictures/")
+add_definitions( -D_VAR="${PROJECT_SOURCE_DIR}/mainGame/Pictures/")
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 
@@ -15,7 +24,4 @@ INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
 
 set (CMAKE_CXX_FLAGS "-Wno-write-strings")
-
-#INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS})
-#TARGET_LINK_LIBRARIES( ${PROJECT_NAME} ${SDL2_LIBRARIES} )
 
