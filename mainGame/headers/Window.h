@@ -15,11 +15,10 @@ const static int Width = 2*288;
 
 class Window : public IRenderable, public IInitable{
 
-private:
-
-
+protected:
 
     SDL_Window* sdl_window = NULL;
+
 
 public:
 

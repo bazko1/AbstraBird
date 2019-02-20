@@ -1,5 +1,5 @@
 #pragma once
-
+#include <SDL_image.h>
 #include <utility>
 #include "bindings.h"
 #include <memory>
@@ -13,25 +13,20 @@
 //const char* ext = "png";
 //
 
-struct Letter {
-
-    Letter(unsigned int w, unsigned int h) : w(w),h(h){};
-
-    unsigned int w;
-    unsigned int h;
-
-};
 
 class FontLoader {
    
    // key - letter , value - Surface 
-  
+  // TODO: make it lazy object construction , renderer doesnt have to be given instantly 
+  // could be given at get letter texture and at this moment it is created 
   private:
-   std::map <char , SDL_Surface* > letterSurface;
+   std::map <char , SDL_Texture* > letterTexture;
    std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
   public:
   
-  FontLoader( const char* dirPath , const char* ext ) {
+  FontLoader(){}
+  
+  FontLoader( const char* dirPath , const char* ext , SDL_Renderer* render ) {
   
 
       for (char c : alphabet) {
@@ -43,13 +38,15 @@ class FontLoader {
          <<"."<<ext;
          
          SDL_Surface* bitmapSurface = IMG_Load(filePath.str().c_str());
+         SDL_Texture* texture = SDL_CreateTextureFromSurface( render , bitmapSurface  );
+         SDL_FreeSurface(bitmapSurface);
          
-         letterSurface[ c ] = bitmapSurface;
+         letterTexture[ c ] = texture;
 
       }
   }
 
- SDL_Surface* getLetterSurface(char c) {
+  SDL_Texture* getLetterTexture(char c) const {
 
      // TODO: for now i assume we have only one type of letters 
       //stored in dict as lower.
@@ -57,8 +54,17 @@ class FontLoader {
      if ( isupper(c) )
         c = tolower(c);
 
-      return letterSurface [ c ];
+     if ( !hasThisChar(c) )
+        return NULL;
 
+      return letterTexture.at(c);//letterSurface [ c ];
+
+  }
+
+  bool hasThisChar(char c) const{
+
+    return letterTexture.find(c) != letterTexture.end();
+    
   }
 
 
@@ -69,37 +75,46 @@ class FontRenderer {
   private:
     
     FontLoader Fl;
-    std::map <char , SDL_Texture* > letterSurface;
+    SDL_Renderer * renderer;
+    //std::map <char , SDL_Texture* > letterSurface;
 
   public:
   
+  FontRenderer(){}
 
-  FontRenderer(const char* dirPath , const char* ext="png") : Fl (dirPath,ext) {
-
-      Fl = FontLoader(dirPath,ext);
-
-  }
+  FontRenderer(const char* dirPath , SDL_Renderer* r , const char* ext="png") : Fl (dirPath,ext,r),renderer(r) 
+  {  }
   
-  bool render( char c , SDL::Rect dstRect , SDL_Renderer* renderer ) {
+  bool render( char c , SDL::Rect dstRect , SDL::Color color ) const {
+      
+      SDL_Texture* texture = Fl.getLetterTexture(c);
+      
+      if (!texture)
+          return false;
 
-      SDL_Surface* bitmapSurface = Fl.getLetterSurface (c);
-      SDL_Texture* texture = SDL_CreateTextureFromSurface( renderer , bitmapSurface  );
+      int w,h;
+      SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+      
+      SDL::SetTextureColorMod(texture,color);
 
-      SDL_RenderCopy( renderer , texture , 
-      std::make_unique<SDL::Rect>( 0,0,bitmapSurface->w,bitmapSurface->h ).get()  ,
-      std::make_unique<SDL::Rect>( dstRect ).get()
-      );
+      SDL_Rect CopyRect = {0,0,w,h};
+
+      SDL_RenderCopy( renderer , texture , &CopyRect , &dstRect );
+      
+      return true;
+
  }
 
+//TODO: change to std::string_view 
 
-  bool render ( std::string chars , SDL::Rect dstRect , SDL_Renderer* renderer ) {
+  bool render ( std::string chars , SDL::Rect dstRect , SDL::Color color ) const {
 
         double fullW = dstRect.w - chars.size();
         int letterW = fullW / chars.size();
 
         for (int i = 0 ; i < chars.size() ; i++ ) {
           render( chars[i] , SDL::Rect ( dstRect.x + i * (letterW + 1)
-           , dstRect.y , letterW , dstRect.h ) , renderer ) ;
+           , dstRect.y , letterW , dstRect.h ) , color ) ;
         }
 
   }

@@ -1,60 +1,94 @@
+
 #include <iostream>
 #include <SDL.h>
-#include <chrono>
-#include <SDL_image.h>
-#include <vector>
-#include "DeltaTimer.h"
-#include "Obstacle.h"
-#include "Pipes.h"
-#include "RectBird.h"
-#include "Game.h"
-#include "Windows.h"
-#include "AbstraBird.h"
-#include "GameFabric.h"
-#include "Rng.h"
-//static const int width = 2*288;
-//static const int height = 2*384;
+#include "button.h"
+#include "bindings.h"
+#include "InteractiveRectGetter.h"
+#include "FileLoader.h"
+#include "runGame.h"
 
-//int piece = 72; //1/8 width
-#include "dirmanager.h"
+SDL_Renderer* r = NULL;
+InteractiveRectGetter* geter = NULL;
+FileLoader Fl;
+SDL_Window* win;
+GWindow* gW;
+
+ static void foo() {
+    Fl.interactiveLoadName();
+    SDL_Texture* texture = Fl.LoadImageAsTexture(r);
+
+    if ( texture ) {
+        geter->setTexture(texture);
+    }
+    else
+        SDL_Log("texture = null");
+    
+    SDL_RaiseWindow(win);
+    
+};
+static void foo2(){
+    
+    SDL_Quit();
+    gW->setFinished(true);
+    runGame();
+
+}
+
 int main() {
 
+    SDL_Init(SDL_INIT_EVERYTHING);
 
+    GWindow w;
+    gW=&w;
+    win = w.getSdl_window();
+    r = w.getRenderer();
 
+    
+    Button<> Sb(150,30,400,100);
+    Sb.setText("StartGame");
+    Sb.setFn(foo2);
 
-//    FlappyTopPipe pipe( height , width , piece , 240 , -3 );
-//    FlappyBotPipe pipe2 ( height , width , piece , 140 , -3 );
+    Button<> b(150,150,400,100);
+    b.setFn(foo);
+    b.setText("ChooseFile");
+    
+    b.AttachTo(&w);
+    Sb.AttachTo(&w);
+    
+    //Created for sake of showing that it works and to show abstraction of startegy a (button which drawing is printing on screen)
+    //Button<MouseController,S2> b3(0,0,10,10);
+    //b3.AttachTo(&w);
 
+    SDL::Rect rect = SDL::Rect(0,270,288*2,498);
+    InteractiveRectGetter Rg (rect);
+    geter = &Rg;
+    Rg.AttachTo(&w);
+    
 
-//    FlappyTopPipe pipe3(height , width + 5*piece ,144/2,360,-3 );
-//    FlappyBotPipe pipe4 (height , width + 5*piece ,144/2 ,240 , -3 );
+    const int FPS = 60;
+    const int frameDelay = 1000/FPS;
+    Uint32 frameStart,frameTime;
 
+    
+    while ( !w.gFinished() ) {
 
+        frameStart = SDL_GetTicks();
 
+        SDL_Event e;
+        
+        w.Notify();
+        
+        frameTime = SDL_GetTicks() - frameStart;
 
-//    std::shared_ptr<Obstacle> o = std::make_shared<Obstacle>(pipe , pipe2 , width + piece  ,height);
+        if ( frameDelay > frameTime ) {
+            SDL_Delay(frameDelay - frameTime );
+        }
 
-//    std::shared_ptr<Obstacle> o2 = std::make_shared<Obstacle>( pipe3,pipe4 , width + piece, height);
+    }
+    
 
-
-//    std::vector <std::shared_ptr<Obstacle>> vector = { o , o2  };
-
-//    std::shared_ptr<AbstraBird> bird = std::make_shared<AbstraBird>( height , piece-piece/4 );
-
-//    bird->setX(200);
-//    bird->setRectX(200);
-
-//    bird->setYSpeed(-0.1);
-//    std::shared_ptr<FlappyWindow> w = std::make_shared<FlappyWindow>();
-
-    //GameFabric<FlappyTopPipe, FlappyBotPipe, AbstraBird> fabric; //
-//    RNG<int,std::vector> rng(1,10,1);
-//    rng.getRandom();
-    Game game = GameFabric<FlappyTopPipe, FlappyBotPipe, AbstraBird>::getGame(200,-0.1,Hard);
-    //Game game = GameFabric<FlappyTopPipe, FlappyBotPipe, AbstraBird>::getGame(200,-0.1,Medium);
-    //Game game = GameFabric<FlappyTopPipe, FlappyBotPipe, AbstraBird>::getGame(200,-0.1,Hard);
-    game.Start();
-
+    SDL_Quit();
+    
 
     return 0;
 

@@ -18,7 +18,7 @@ class Game : public IUpdate {
 
 private:
 
-    std::shared_ptr<Window> window;
+    
 
     std::shared_ptr<InputListener> listener;
 
@@ -44,6 +44,7 @@ private:
 
 public:
 
+    std::shared_ptr<Window> window;
 
     bool score( Obstacle& obstacle );
 

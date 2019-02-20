@@ -57,6 +57,37 @@ public:
 
 };
 
+class GuiWindow : public Window {
+    public:
+    
+    SDL_Surface* bitmapSurface = NULL ;
+
+    SDL_Texture* texture = NULL;
+
+    GuiWindow(SDL_Window* window) {
+        this->Window::sdl_window = window;
+        this->sdl_window = window;
+    }
+
+       void Init(SDL_Renderer *renderer) override {
+
+        IInitable::Init( renderer
+                ,DirManager::getDir("bg.png").c_str()
+                ,bitmapSurface
+                ,texture );
+
+    }
+
+    void render(SDL_Renderer *renderer) override {
+
+
+        SDL_RenderCopy(renderer, texture, NULL, NULL);
+
+    }
+
+
+};
+
 
 
 #endif //ABSTRABIRD_WINDOWS_H

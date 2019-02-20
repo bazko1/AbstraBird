@@ -40,22 +40,23 @@ public:
     void render(SDL_Renderer *renderer) override {
 
 
-        SDL_Rect srcRect = { 36* currAnim,0,36,26 };
+        //SDL_Rect srcRect = { 0,0,36,26 };
 
 
         if (this->getYSpeed() < -0.1)
-            SDL_RenderCopyEx(renderer, texture, &srcRect, &this->getRect(), 300, NULL, SDL_FLIP_NONE);
+            SDL_RenderCopyEx(renderer, texture, NULL, &this->getRect(), -10, NULL, SDL_FLIP_NONE);
         else if (this->getYSpeed() > 0.8  )
-            SDL_RenderCopyEx(renderer, texture, &srcRect, &this->getRect(), 30, NULL, SDL_FLIP_NONE);
+           SDL_RenderCopyEx(renderer, texture, NULL, &this->getRect(), 10, NULL, SDL_FLIP_NONE);
         else
-            SDL_RenderCopyEx(renderer, texture, &srcRect, &this->getRect(), 0, NULL, SDL_FLIP_NONE);
+            SDL_RenderCopy(renderer, texture,  NULL, &this->getRect() );
+            ///, 0, NULL, SDL_FLIP_NONE);
 
-        if ( animCounter++==80 ) {
+        // if ( animCounter++==80 ) {
 
-            currAnim++;
-            currAnim %= 3;
-            animCounter=0;
-        }
+        //     currAnim++;
+        //     currAnim %= 3;
+        //     animCounter=0;
+        // }
 
     }
 
