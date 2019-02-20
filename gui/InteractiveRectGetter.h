@@ -55,7 +55,7 @@ class InteractiveRectGetter : public Observer {
             SDL_RenderCopyEx(renderer, area, NULL ,&test, 180, NULL, SDL_FLIP_HORIZONTAL);
             
             SDL_SetRenderTarget(renderer, NULL);  
-            save_texture("/home/bazyli/gitworkspace/AbstraBird/mainGame/Pictures/bird.png",renderer,toCopy);
+            save_texture("mainGame/Pictures/bird.png",renderer,toCopy);
             
             SDL_DestroyTexture(toCopy);
             SDL_DestroyTexture(area);
